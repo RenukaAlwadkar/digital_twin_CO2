@@ -1,0 +1,3150 @@
+[
+  {
+    "id": "traffic-collector",
+    "name": "Traffic Collector Node",
+    "type": "traffic_monitoring",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.6690649344649,
+    "lng": 77.2080801473436,
+    "source": "live",
+    "active": true,
+    "base": {
+      "trafficDensity": 35.92274884640938,
+      "averageSpeedKph": 28.448201545064805,
+      "co2ppm": 1052.5089843359237,
+      "aqi": 141.68381870772282
+    }
+  },
+  {
+    "id": "env-air-quality",
+    "name": "Environmental Sensor Node",
+    "type": "air_quality",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.61435182750196,
+    "lng": 77.25954782169849,
+    "source": "live",
+    "active": true,
+    "base": {
+      "temperatureC": 27.88479947959204,
+      "humidityPct": 50.713241910372744,
+      "co2ppm": 1010.605864714869,
+      "pm25": 67.0495165565121,
+      "aqi": 116
+    }
+  },
+  {
+    "id": "air_quality-003",
+    "name": "Saket Air Quality 003",
+    "type": "air_quality",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.578149333514805,
+    "lng": 77.23888187998647,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.642648382074547,
+      "humidityPct": 58.487222355252015,
+      "co2ppm": 981.2832698694809,
+      "pm25": 60.67234994116938,
+      "aqi": 110
+    }
+  },
+  {
+    "id": "air_quality-004",
+    "name": "Lajpat Nagar Air Quality 004",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.62386874982768,
+    "lng": 77.00936420503773,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.197444471050403,
+      "humidityPct": 55.78141225215222,
+      "co2ppm": 1049.1330619852322,
+      "pm25": 74.64137442320468,
+      "aqi": 113
+    }
+  },
+  {
+    "id": "air_quality-005",
+    "name": "Dwarka Air Quality 005",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.744259011780308,
+    "lng": 77.10654533868276,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.656282450430446,
+      "humidityPct": 44.2227873676311,
+      "co2ppm": 1106.2620262030412,
+      "pm25": 73.2082015450648,
+      "aqi": 124
+    }
+  },
+  {
+    "id": "traffic_monitoring-006",
+    "name": "Rohini Traffic 006",
+    "type": "traffic_monitoring",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.659371875891612,
+    "lng": 77.2561124877622,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 38.306980017223395,
+      "averageSpeedKph": 21.621148845201823,
+      "co2ppm": 1167.6226388382493,
+      "aqi": 147.008550558181
+    }
+  },
+  {
+    "id": "air_quality-007",
+    "name": "Pitampura Air Quality 007",
+    "type": "air_quality",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.669967203246465,
+    "lng": 77.30809663602436,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.28261849044211,
+      "humidityPct": 55.68845347639581,
+      "co2ppm": 1123.927148391911,
+      "pm25": 77.8150305367657,
+      "aqi": 123
+    }
+  },
+  {
+    "id": "traffic_monitoring-008",
+    "name": "Laxmi Nagar Traffic 008",
+    "type": "traffic_monitoring",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.557663253901,
+    "lng": 77.2247822395901,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 52.166037023533136,
+      "averageSpeedKph": 19.168244692524894,
+      "co2ppm": 1305.6525858088353,
+      "aqi": 162.54808859655168
+    }
+  },
+  {
+    "id": "air_quality-009",
+    "name": "Mayur Vihar Air Quality 009",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.614672848225112,
+    "lng": 77.28380836298187,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.290539060155425,
+      "humidityPct": 57.68381870772282,
+      "co2ppm": 1179.7936929808698,
+      "pm25": 79.2734900086117,
+      "aqi": 132
+    }
+  },
+  {
+    "id": "air_quality-010",
+    "name": "New Delhi Railway Station Air Quality 010",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.681408045820497,
+    "lng": 77.1869913061644,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.036763741544565,
+      "humidityPct": 48.81552105222363,
+      "co2ppm": 1260.2930375753524,
+      "pm25": 81.04114884520182,
+      "aqi": 134
+    }
+  },
+  {
+    "id": "traffic_monitoring-011",
+    "name": "India Gate Traffic 011",
+    "type": "traffic_monitoring",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.535006005656715,
+    "lng": 77.25334473575556,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 28.709412085823715,
+      "averageSpeedKph": 22.28611139870482,
+      "co2ppm": 1069.8281819156546,
+      "aqi": 136.9158312293148
+    }
+  },
+  {
+    "id": "air_quality-012",
+    "name": "Chanakyapuri Air Quality 012",
+    "type": "air_quality",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.60932722838511,
+    "lng": 77.05979435085897,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.019070503875263,
+      "humidityPct": 46.807584901704104,
+      "co2ppm": 873.6264119779574,
+      "pm25": 56.8682446925249,
+      "aqi": 89
+    }
+  },
+  {
+    "id": "air_quality-013",
+    "name": "Okhla Air Quality 013",
+    "type": "air_quality",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.73818151923208,
+    "lng": 77.17857108373055,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.86151698034082,
+      "humidityPct": 54.68679165147478,
+      "co2ppm": 943.9221410595928,
+      "pm25": 63.28701144117804,
+      "aqi": 91
+    }
+  },
+  {
+    "id": "air_quality-014",
+    "name": "Noida Border Air Quality 014",
+    "type": "air_quality",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.56948118064907,
+    "lng": 77.28968303940898,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.437358330294956,
+      "humidityPct": 51.008550558181014,
+      "co2ppm": 1082.861350110308,
+      "pm25": 70.03470604291185,
+      "aqi": 110
+    }
+  },
+  {
+    "id": "traffic_monitoring-015",
+    "name": "Narela Traffic 015",
+    "type": "traffic_monitoring",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.65731138179754,
+    "lng": 77.25215423955886,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 35.00508090585936,
+      "averageSpeedKph": 17.815245495042767,
+      "co2ppm": 1231.2116098497208,
+      "aqi": 165.2314757578606
+    }
+  },
+  {
+    "id": "traffic_monitoring-016",
+    "name": "Wazirabad Traffic 016",
+    "type": "traffic_monitoring",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.539417539989273,
+    "lng": 77.17895509080171,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 35.59049099008553,
+      "averageSpeedKph": 20.60154797996278,
+      "co2ppm": 1241.1049191928687,
+      "aqi": 157.52134726314398
+    }
+  },
+  {
+    "id": "air_quality-017",
+    "name": "Shahdara Air Quality 017",
+    "type": "air_quality",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.57667394651193,
+    "lng": 77.26130424720887,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.209617719310337,
+      "humidityPct": 43.443750647085835,
+      "co2ppm": 1078.532878901597,
+      "pm25": 71.88259165747324,
+      "aqi": 108
+    }
+  },
+  {
+    "id": "air_quality-018",
+    "name": "Vasant Kunj Air Quality 018",
+    "type": "air_quality",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.611034930554524,
+    "lng": 77.15211652798175,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.188750129417166,
+      "humidityPct": 46.94845457469637,
+      "co2ppm": 1090.072677002891,
+      "pm25": 67.92254045292968,
+      "aqi": 114
+    }
+  },
+  {
+    "id": "air_quality-019",
+    "name": "Hauz Khas Air Quality 019",
+    "type": "air_quality",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.511865134928733,
+    "lng": 77.20290100456859,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.889690914939273,
+      "humidityPct": 49.91583122931479,
+      "co2ppm": 1149.4222289631348,
+      "pm25": 75.41524549504277,
+      "aqi": 138
+    }
+  },
+  {
+    "id": "air_quality-020",
+    "name": "Punjabi Bagh Air Quality 020",
+    "type": "air_quality",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.643481017880283,
+    "lng": 76.9894125740053,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.483166245862957,
+      "humidityPct": 41.00571601909178,
+      "co2ppm": 1273.5333980816242,
+      "pm25": 84.92154797996278,
+      "aqi": 143
+    }
+  },
+  {
+    "id": "traffic_monitoring-021",
+    "name": "Preet Vihar Traffic 021",
+    "type": "traffic_monitoring",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.770633809500634,
+    "lng": 77.05409611740245,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 28.688696313183755,
+      "averageSpeedKph": 22.80478286643047,
+      "co2ppm": 1084.5552429866802,
+      "aqi": 145.66737081994506
+    }
+  },
+  {
+    "id": "traffic_monitoring-022",
+    "name": "Dilshad Garden Traffic 022",
+    "type": "traffic_monitoring",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.587147158350163,
+    "lng": 77.26880996704615,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 32.20956573286094,
+      "averageSpeedKph": 23.287365731557365,
+      "co2ppm": 1192.8912360664835,
+      "aqi": 155.07023426917794
+    }
+  },
+  {
+    "id": "air_quality-023",
+    "name": "Moti Bagh Air Quality 023",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.664523715536674,
+    "lng": 77.2335920359633,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.21269659098325,
+      "humidityPct": 58.73147575786061,
+      "co2ppm": 974.4385726900044,
+      "pm25": 61.52561264870223,
+      "aqi": 95
+    }
+  },
+  {
+    "id": "air_quality-024",
+    "name": "Jangpura Air Quality 024",
+    "type": "air_quality",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.508212202134466,
+    "lng": 77.19836942303918,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.24629515157212,
+      "humidityPct": 54.02134726314398,
+      "co2ppm": 953.1991106761445,
+      "pm25": 63.20434815659188,
+      "aqi": 105
+    }
+  },
+  {
+    "id": "air_quality-025",
+    "name": "Connaught Place Air Quality 025",
+    "type": "air_quality",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.643580278411086,
+    "lng": 77.23037742515635,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.304269452628795,
+      "humidityPct": 46.14262845958001,
+      "co2ppm": 1056.463046370179,
+      "pm25": 67.66478286643047,
+      "aqi": 125
+    }
+  },
+  {
+    "id": "traffic_monitoring-026",
+    "name": "Karol Bagh Traffic 026",
+    "type": "traffic_monitoring",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.704513982536554,
+    "lng": 77.17531664043767,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 38.5244260521431,
+      "averageSpeedKph": 24.105641282870202,
+      "co2ppm": 1193.7992477022344,
+      "aqi": 158.31675404209818
+    }
+  },
+  {
+    "id": "air_quality-027",
+    "name": "Saket Air Quality 027",
+    "type": "air_quality",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.568012457471152,
+    "lng": 77.25840986610517,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.204956670466345,
+      "humidityPct": 44.610761449468555,
+      "co2ppm": 1020.514450151127,
+      "pm25": 70.81216480886447,
+      "aqi": 107
+    }
+  },
+  {
+    "id": "air_quality-028",
+    "name": "Lajpat Nagar Air Quality 028",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.58692384599918,
+    "lng": 77.03934087155604,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.42215228989371,
+      "humidityPct": 51.36657289600407,
+      "co2ppm": 1171.1064420775642,
+      "pm25": 78.38454856407908,
+      "aqi": 127
+    }
+  },
+  {
+    "id": "traffic_monitoring-029",
+    "name": "Dwarka Traffic 029",
+    "type": "traffic_monitoring",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.776151755789762,
+    "lng": 77.07157250295144,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 33.948225815198384,
+      "averageSpeedKph": 25.904656855128707,
+      "co2ppm": 1026.925866852238,
+      "aqi": 136.00486805038236
+    }
+  },
+  {
+    "id": "air_quality-030",
+    "name": "Rohini Air Quality 030",
+    "type": "air_quality",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.6149300481568,
+    "lng": 77.26024839441452,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.233474163989012,
+      "humidityPct": 57.570234269177945,
+      "co2ppm": 1135.3193639781261,
+      "pm25": 77.1656412828702,
+      "aqi": 131
+    }
+  },
+  {
+    "id": "traffic_monitoring-031",
+    "name": "Pitampura Traffic 031",
+    "type": "traffic_monitoring",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.71659101647071,
+    "lng": 77.2353707682413,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 31.446897827263456,
+      "averageSpeedKph": 24.59771913350327,
+      "co2ppm": 1169.758289713056,
+      "aqi": 142.0974284582262
+    }
+  },
+  {
+    "id": "air_quality-032",
+    "name": "Laxmi Nagar Air Quality 032",
+    "type": "air_quality",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.540048001235636,
+    "lng": 77.10813486475699,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.392995861732196,
+      "humidityPct": 54.82769288645795,
+      "co2ppm": 1200.5657889859401,
+      "pm25": 82.21411290759919,
+      "aqi": 120
+    }
+  },
+  {
+    "id": "air_quality-033",
+    "name": "Mayur Vihar Air Quality 033",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.595364128275346,
+    "lng": 77.14677951843767,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.46553857729159,
+      "humidityPct": 51.73977431067033,
+      "co2ppm": 1252.398487941493,
+      "pm25": 80.2246568551287,
+      "aqi": 135
+    }
+  },
+  {
+    "id": "air_quality-034",
+    "name": "New Delhi Railway Station Air Quality 034",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.669099199253175,
+    "lng": 77.2304553839155,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.847954862134067,
+      "humidityPct": 57.81675404209818,
+      "co2ppm": 870.9157474823762,
+      "pm25": 55.383448913631725,
+      "aqi": 100
+    }
+  },
+  {
+    "id": "air_quality-035",
+    "name": "India Gate Air Quality 035",
+    "type": "air_quality",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.552832136116095,
+    "lng": 77.12776349315686,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.063350808419635,
+      "humidityPct": 49.15547792403959,
+      "co2ppm": 863.6801779942776,
+      "pm25": 59.83771913350327,
+      "aqi": 89
+    }
+  },
+  {
+    "id": "traffic_monitoring-036",
+    "name": "Chanakyapuri Traffic 036",
+    "type": "traffic_monitoring",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.569227138659834,
+    "lng": 76.9856726979686,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 37.28048799629323,
+      "averageSpeedKph": 17.435080163395035,
+      "co2ppm": 1224.1319961601548,
+      "aqi": 149.5860372065581
+    }
+  },
+  {
+    "id": "air_quality-037",
+    "name": "Okhla Air Quality 037",
+    "type": "air_quality",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.74884395757534,
+    "lng": 77.05045125880696,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.475552011134276,
+      "humidityPct": 53.504868050382356,
+      "co2ppm": 1054.718004665232,
+      "pm25": 66.46552375921165,
+      "aqi": 101
+    }
+  },
+  {
+    "id": "air_quality-038",
+    "name": "Noida Border Air Quality 038",
+    "type": "air_quality",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.567159048212215,
+    "lng": 77.30676384441666,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.20097361007647,
+      "humidityPct": 55.3274869139168,
+      "co2ppm": 1028.223332893102,
+      "pm25": 68.9312122273189,
+      "aqi": 102
+    }
+  },
+  {
+    "id": "air_quality-039",
+    "name": "Narela Air Quality 039",
+    "type": "air_quality",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.628864126186713,
+    "lng": 77.24904450265561,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.56549738278336,
+      "humidityPct": 46.097428458226204,
+      "co2ppm": 1166.5731069890405,
+      "pm25": 74.02024399814661,
+      "aqi": 119
+    }
+  },
+  {
+    "id": "air_quality-040",
+    "name": "Wazirabad Air Quality 040",
+    "type": "air_quality",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.519020496168935,
+    "lng": 77.13422815337844,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.71948569164524,
+      "humidityPct": 50.25022751146753,
+      "co2ppm": 1112.377134983783,
+      "pm25": 71.93508016339503,
+      "aqi": 112
+    }
+  },
+  {
+    "id": "traffic_monitoring-041",
+    "name": "Shahdara Traffic 041",
+    "type": "traffic_monitoring",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.58932164766566,
+    "lng": 77.19103707287222,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 32.8622854136629,
+      "averageSpeedKph": 23.717150176835712,
+      "co2ppm": 1126.373997613031,
+      "aqi": 139.54408954639803
+    }
+  },
+  {
+    "id": "air_quality-042",
+    "name": "Vasant Kunj Air Quality 042",
+    "type": "air_quality",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.682852500205886,
+    "lng": 77.16527655533518,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.213109799165977,
+      "humidityPct": 43.05893036763882,
+      "co2ppm": 1170.5539955201807,
+      "pm25": 75.04712764735916,
+      "aqi": 127
+    }
+  },
+  {
+    "id": "traffic_monitoring-043",
+    "name": "Hauz Khas Traffic 043",
+    "type": "traffic_monitoring",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.525717099526656,
+    "lng": 77.20063796867865,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 42.96639936347492,
+      "averageSpeedKph": 22.477373131732456,
+      "co2ppm": 1147.4994882903993,
+      "aqi": 144.06815040325455
+    }
+  },
+  {
+    "id": "air_quality-044",
+    "name": "Punjabi Bagh Air Quality 044",
+    "type": "air_quality",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.578513502422997,
+    "lng": 76.9923441032919,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.78791976960929,
+      "humidityPct": 43.0860372065581,
+      "co2ppm": 1253.239891013549,
+      "pm25": 81.65114270683145,
+      "aqi": 140
+    }
+  },
+  {
+    "id": "air_quality-045",
+    "name": "Preet Vihar Air Quality 045",
+    "type": "air_quality",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.79,
+    "lng": 77.04845669880353,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.11720744131162,
+      "humidityPct": 55.615971974912554,
+      "co2ppm": 840.3724986847752,
+      "pm25": 54.41715017683571,
+      "aqi": 88
+    }
+  },
+  {
+    "id": "traffic_monitoring-046",
+    "name": "Dilshad Garden Traffic 046",
+    "type": "traffic_monitoring",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.6013551087614,
+    "lng": 77.24215215467271,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 24.949467025115155,
+      "averageSpeedKph": 23.319350520237933,
+      "co2ppm": 1036.1885642162233,
+      "aqi": 126.47953518419672
+    }
+  },
+  {
+    "id": "air_quality-047",
+    "name": "Moti Bagh Air Quality 047",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.64467664453562,
+    "lng": 77.3075252658815,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.69401421807415,
+      "humidityPct": 48.28358789788035,
+      "co2ppm": 928.5029972152029,
+      "pm25": 59.31737313173245,
+      "aqi": 91
+    }
+  },
+  {
+    "id": "air_quality-048",
+    "name": "Jangpura Air Quality 048",
+    "type": "air_quality",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.51796920117341,
+    "lng": 77.09638084606476,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.15671757957607,
+      "humidityPct": 56.712199283909285,
+      "co2ppm": 957.0270149026591,
+      "pm25": 61.039931772053244,
+      "aqi": 94
+    }
+  },
+  {
+    "id": "air_quality-049",
+    "name": "Connaught Place Air Quality 049",
+    "type": "air_quality",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.59118291595518,
+    "lng": 77.23877650950116,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.84243985678186,
+      "humidityPct": 49.54408954639803,
+      "co2ppm": 967.7494030054659,
+      "pm25": 63.57473351255757,
+      "aqi": 97
+    }
+  },
+  {
+    "id": "traffic_monitoring-050",
+    "name": "Karol Bagh Traffic 050",
+    "type": "traffic_monitoring",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.617817828809272,
+    "lng": 77.14613242225543,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 38.97435116418637,
+      "averageSpeedKph": 19.8933645703271,
+      "co2ppm": 1103.2833670050313,
+      "aqi": 135.39548895588814
+    }
+  },
+  {
+    "id": "traffic_monitoring-051",
+    "name": "Saket Traffic 051",
+    "type": "traffic_monitoring",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.477856267523048,
+    "lng": 77.13719968995808,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 26.266729140654206,
+      "averageSpeedKph": 20.464448934004174,
+      "co2ppm": 1102.6516298529605,
+      "aqi": 144.75713654721403
+    }
+  },
+  {
+    "id": "air_quality-052",
+    "name": "Lajpat Nagar Air Quality 052",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.62219398684823,
+    "lng": 77.07492490008462,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.81363008065091,
+      "humidityPct": 44.148538670535345,
+      "co2ppm": 1133.0866582522606,
+      "pm25": 72.91757119297633,
+      "aqi": 111
+    }
+  },
+  {
+    "id": "air_quality-053",
+    "name": "Dwarka Air Quality 053",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.694507532818044,
+    "lng": 77.10408060925845,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.329707734107068,
+      "humidityPct": 44.056569264866994,
+      "co2ppm": 1155.153747938543,
+      "pm25": 80.60717558209319,
+      "aqi": 116
+    }
+  },
+  {
+    "id": "air_quality-054",
+    "name": "Rohini Air Quality 054",
+    "type": "air_quality",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.55822691667816,
+    "lng": 77.22614095467017,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.3113138529734,
+      "humidityPct": 42.47953518419672,
+      "co2ppm": 1253.1627863433155,
+      "pm25": 77.3533645703271,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "air_quality-055",
+    "name": "Pitampura Air Quality 055",
+    "type": "air_quality",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.625291562842108,
+    "lng": 77.25515191180824,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.995907036839345,
+      "humidityPct": 55.59614505970967,
+      "co2ppm": 1253.966939990362,
+      "pm25": 81.64444893400417,
+      "aqi": 139
+    }
+  },
+  {
+    "id": "traffic_monitoring-056",
+    "name": "Laxmi Nagar Traffic 056",
+    "type": "traffic_monitoring",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.552686153942116,
+    "lng": 77.09188330343103,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 26.209109180315863,
+      "averageSpeedKph": 24.545419152027463,
+      "co2ppm": 1048.071019251889,
+      "aqi": 134.13255652604857
+    }
+  },
+  {
+    "id": "traffic_monitoring-057",
+    "name": "Mayur Vihar Traffic 057",
+    "type": "traffic_monitoring",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.601642303944065,
+    "lng": 77.19602305167123,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 25.250838304054923,
+      "averageSpeedKph": 24.862802566918546,
+      "co2ppm": 1056.4418550868286,
+      "aqi": 128.1188086465554
+    }
+  },
+  {
+    "id": "air_quality-058",
+    "name": "New Delhi Railway Station Air Quality 058",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.638929023332345,
+    "lng": 77.18688355554691,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.01700202030188,
+      "humidityPct": 42.39548895588814,
+      "co2ppm": 937.4333087947213,
+      "pm25": 59.31183155976294,
+      "aqi": 95
+    }
+  },
+  {
+    "id": "air_quality-059",
+    "name": "India Gate Air Quality 059",
+    "type": "air_quality",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.509879772953,
+    "lng": 77.19171468937883,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.97909779117763,
+      "humidityPct": 51.75713654721403,
+      "co2ppm": 1025.3035261479258,
+      "pm25": 67.92455459015792,
+      "aqi": 108
+    }
+  },
+  {
+    "id": "air_quality-060",
+    "name": "Chanakyapuri Air Quality 060",
+    "type": "air_quality",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.580717680023124,
+    "lng": 77.0423521828571,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.851427309442805,
+      "humidityPct": 45.34662100946662,
+      "co2ppm": 997.964852663882,
+      "pm25": 64.96541915202747,
+      "aqi": 107
+    }
+  },
+  {
+    "id": "traffic_monitoring-061",
+    "name": "Okhla Traffic 061",
+    "type": "traffic_monitoring",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.747124696055163,
+    "lng": 77.17652583678331,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 31.462219692359213,
+      "averageSpeedKph": 19.48214999320495,
+      "co2ppm": 1193.6935567506662,
+      "aqi": 144.27421076013707
+    }
+  },
+  {
+    "id": "air_quality-062",
+    "name": "Noida Border Air Quality 062",
+    "type": "air_quality",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.571956591342804,
+    "lng": 77.34155797867406,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.09704956557107,
+      "humidityPct": 46.90719309206179,
+      "co2ppm": 1071.7495224605373,
+      "pm25": 71.35891401157714,
+      "aqi": 104
+    }
+  },
+  {
+    "id": "air_quality-063",
+    "name": "Narela Air Quality 063",
+    "type": "air_quality",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.62355139467291,
+    "lng": 77.24017987737159,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.881438618412357,
+      "humidityPct": 47.621305775566725,
+      "co2ppm": 1100.3154976013,
+      "pm25": 69.92613717624685,
+      "aqi": 110
+    }
+  },
+  {
+    "id": "traffic_monitoring-064",
+    "name": "Wazirabad Traffic 064",
+    "type": "traffic_monitoring",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.51083898320101,
+    "lng": 77.1616722087328,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 23.465965120121837,
+      "averageSpeedKph": 27.10206613590941,
+      "co2ppm": 1049.0496922544553,
+      "aqi": 127.29532334343821
+    }
+  },
+  {
+    "id": "air_quality-065",
+    "name": "Shahdara Air Quality 065",
+    "type": "air_quality",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.64444929849662,
+    "lng": 77.25607118099974,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.526511305209716,
+      "humidityPct": 44.11880864655541,
+      "co2ppm": 1207.8222111540715,
+      "pm25": 79.36214999320495,
+      "aqi": 124
+    }
+  },
+  {
+    "id": "traffic_monitoring-066",
+    "name": "Vasant Kunj Traffic 066",
+    "type": "traffic_monitoring",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.618032698041134,
+    "lng": 77.23856009367701,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 26.94658460118808,
+      "averageSpeedKph": 20.833477041528095,
+      "co2ppm": 1118.0327664771758,
+      "aqi": 138.76639451532537
+    }
+  },
+  {
+    "id": "air_quality-067",
+    "name": "Hauz Khas Air Quality 067",
+    "type": "air_quality",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.542165891933138,
+    "lng": 77.23896039065261,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.803999430780824,
+      "humidityPct": 44.424837484711134,
+      "co2ppm": 880.8424828757773,
+      "pm25": 54.892982560060915,
+      "aqi": 85
+    }
+  },
+  {
+    "id": "air_quality-068",
+    "name": "Punjabi Bagh Air Quality 068",
+    "type": "air_quality",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.55291549776274,
+    "lng": 77.10352441054876,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.384967496942227,
+      "humidityPct": 51.70806702519985,
+      "co2ppm": 859.3885974005331,
+      "pm25": 59.82206613590941,
+      "aqi": 83
+    }
+  },
+  {
+    "id": "air_quality-069",
+    "name": "Preet Vihar Air Quality 069",
+    "type": "air_quality",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.699659628522223,
+    "lng": 77.06448621726759,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.841613405039972,
+      "humidityPct": 43.774210760137066,
+      "co2ppm": 981.6930786892074,
+      "pm25": 61.33329230059404,
+      "aqi": 109
+    }
+  },
+  {
+    "id": "air_quality-070",
+    "name": "Dilshad Garden Air Quality 070",
+    "type": "air_quality",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.63096812567155,
+    "lng": 77.2236280101387,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.254842152027415,
+      "humidityPct": 53.46964880579617,
+      "co2ppm": 1002.491307630198,
+      "pm25": 63.93347704152809,
+      "aqi": 107
+    }
+  },
+  {
+    "id": "traffic_monitoring-071",
+    "name": "Moti Bagh Traffic 071",
+    "type": "traffic_monitoring",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.669791197608944,
+    "lng": 77.2953846347078,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 41.43803196167573,
+      "averageSpeedKph": 16.552595068479423,
+      "co2ppm": 1252.5814486700983,
+      "aqi": 159.22657507644908
+    }
+  },
+  {
+    "id": "air_quality-072",
+    "name": "Jangpura Air Quality 072",
+    "type": "air_quality",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.49273791444677,
+    "lng": 77.11130485581263,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.362981535267316,
+      "humidityPct": 41.79532334343821,
+      "co2ppm": 1106.7715608900385,
+      "pm25": 71.37173089570017,
+      "aqi": 111
+    }
+  },
+  {
+    "id": "air_quality-073",
+    "name": "Connaught Place Air Quality 073",
+    "type": "air_quality",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.603666832498405,
+    "lng": 77.27663151103886,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.859064668687644,
+      "humidityPct": 54.20982994315273,
+      "co2ppm": 1207.8026453373766,
+      "pm25": 76.6962580755612,
+      "aqi": 119
+    }
+  },
+  {
+    "id": "air_quality-074",
+    "name": "Karol Bagh Air Quality 074",
+    "type": "air_quality",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.607123936525657,
+    "lng": 77.12680412011815,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.341965988630545,
+      "humidityPct": 48.76639451532537,
+      "co2ppm": 1202.6672581611606,
+      "pm25": 79.43901598083787,
+      "aqi": 128
+    }
+  },
+  {
+    "id": "air_quality-075",
+    "name": "Saket Air Quality 075",
+    "type": "air_quality",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.514831293406854,
+    "lng": 77.16232839769577,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.253278903065073,
+      "humidityPct": 42.6115806700127,
+      "co2ppm": 1140.6163898323314,
+      "pm25": 73.01259506847943,
+      "aqi": 123
+    }
+  },
+  {
+    "id": "traffic_monitoring-076",
+    "name": "Lajpat Nagar Traffic 076",
+    "type": "traffic_monitoring",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.588866477105555,
+    "lng": 77.04329242580185,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 30.10623634827789,
+      "averageSpeedKph": 28.264207690098228,
+      "co2ppm": 1110.9248683679762,
+      "aqi": 132.04633111276053
+    }
+  },
+  {
+    "id": "air_quality-077",
+    "name": "Dwarka Air Quality 077",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.7349998315528,
+    "lng": 77.17776558004839,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.69855719137704,
+      "humidityPct": 42.6933389040787,
+      "co2ppm": 1316.7450234484481,
+      "pm25": 87.29847781175515,
+      "aqi": 140
+    }
+  },
+  {
+    "id": "traffic_monitoring-078",
+    "name": "Rohini Traffic 078",
+    "type": "traffic_monitoring",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.603624058689,
+    "lng": 77.27361413360074,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 42.04663156479364,
+      "averageSpeedKph": 19.811702716782456,
+      "co2ppm": 1165.7832310164522,
+      "aqi": 151.77254171829554
+    }
+  },
+  {
+    "id": "air_quality-079",
+    "name": "Pitampura Air Quality 079",
+    "type": "air_quality",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.724533814848158,
+    "lng": 77.30793661239706,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.0548869202059,
+      "humidityPct": 49.72657507644908,
+      "co2ppm": 986.4573399812857,
+      "pm25": 65.27311817413894,
+      "aqi": 114
+    }
+  },
+  {
+    "id": "air_quality-080",
+    "name": "Laxmi Nagar Air Quality 080",
+    "type": "air_quality",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.57387708358551,
+    "lng": 77.18115249428517,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.445315015289815,
+      "humidityPct": 47.44331599518773,
+      "co2ppm": 1058.2897840237158,
+      "pm25": 73.48420769009823,
+      "aqi": 104
+    }
+  },
+  {
+    "id": "traffic_monitoring-081",
+    "name": "Mayur Vihar Traffic 081",
+    "type": "traffic_monitoring",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.593472873746,
+    "lng": 77.28558232872498,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 45.79781486070715,
+      "averageSpeedKph": 23.127536635550207,
+      "co2ppm": 1239.066666722414,
+      "aqi": 162.7025381125277
+    }
+  },
+  {
+    "id": "air_quality-082",
+    "name": "New Delhi Railway Station Air Quality 082",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.65053989676529,
+    "lng": 77.13942833351602,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.298903178362526,
+      "humidityPct": 57.704467302721014,
+      "co2ppm": 1009.0790130959722,
+      "pm25": 62.23170271678245,
+      "aqi": 111
+    }
+  },
+  {
+    "id": "air_quality-083",
+    "name": "India Gate Air Quality 083",
+    "type": "air_quality",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.54592486943234,
+    "lng": 77.22075175925107,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.040893460544204,
+      "humidityPct": 55.67746051039285,
+      "co2ppm": 1074.7023987718464,
+      "pm25": 72.77776413552697,
+      "aqi": 124
+    }
+  },
+  {
+    "id": "air_quality-084",
+    "name": "Chanakyapuri Air Quality 084",
+    "type": "air_quality",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.62299772020823,
+    "lng": 76.97805073573107,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.63549210207857,
+      "humidityPct": 43.54633111276053,
+      "co2ppm": 1101.8804361858608,
+      "pm25": 74.43890743035358,
+      "aqi": 123
+    }
+  },
+  {
+    "id": "traffic_monitoring-085",
+    "name": "Okhla Traffic 085",
+    "type": "traffic_monitoring",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.77708981403734,
+    "lng": 77.04677477154404,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 30.33997210301459,
+      "averageSpeedKph": 19.486182903659063,
+      "co2ppm": 1151.3959152072784,
+      "aqi": 141.7544968341099
+    }
+  },
+  {
+    "id": "traffic_monitoring-086",
+    "name": "Noida Border Traffic 086",
+    "type": "traffic_monitoring",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.65434685193488,
+    "lng": 77.29322505057873,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 31.89236580731813,
+      "averageSpeedKph": 21.87945536097046,
+      "co2ppm": 1173.8483227803663,
+      "aqi": 158.29381602752255
+    }
+  },
+  {
+    "id": "air_quality-087",
+    "name": "Narela Air Quality 087",
+    "type": "air_quality",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.638251065829433,
+    "lng": 77.2901595121255,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.35450834365911,
+      "humidityPct": 55.05695742998796,
+      "co2ppm": 1211.3777778428164,
+      "pm25": 82.16335027223452,
+      "aqi": 116
+    }
+  },
+  {
+    "id": "air_quality-088",
+    "name": "Wazirabad Air Quality 088",
+    "type": "air_quality",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.492250933379303,
+    "lng": 77.14666066305577,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.511391485997592,
+      "humidityPct": 54.520000016724225,
+      "co2ppm": 1317.754314882052,
+      "pm25": 82.10998605150729,
+      "aqi": 137
+    }
+  },
+  {
+    "id": "air_quality-089",
+    "name": "Shahdara Air Quality 089",
+    "type": "air_quality",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.635343656073903,
+    "lng": 77.28658308160898,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.404000003344844,
+      "humidityPct": 57.70253811252769,
+      "co2ppm": 952.8373779506888,
+      "pm25": 60.92618290365907,
+      "aqi": 98
+    }
+  },
+  {
+    "id": "air_quality-090",
+    "name": "Vasant Kunj Air Quality 090",
+    "type": "air_quality",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.623534702850556,
+    "lng": 77.17175794343964,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.040507622505537,
+      "humidityPct": 43.63246861589141,
+      "co2ppm": 890.1041004070169,
+      "pm25": 60.67945536097046,
+      "aqi": 108
+    }
+  },
+  {
+    "id": "traffic_monitoring-091",
+    "name": "Hauz Khas Traffic 091",
+    "type": "traffic_monitoring",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.574755746052134,
+    "lng": 77.28480747840099,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 18.64858041901607,
+      "averageSpeedKph": 27.340603467251057,
+      "co2ppm": 1031.5918250700342,
+      "aqi": 125.1873329490627
+    }
+  },
+  {
+    "id": "traffic_monitoring-092",
+    "name": "Punjabi Bagh Traffic 092",
+    "type": "traffic_monitoring",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.550522204644338,
+    "lng": 77.01830043578599,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 30.961206934502115,
+      "averageSpeedKph": 27.985576676004566,
+      "co2ppm": 1082.6244431635423,
+      "aqi": 139.8032208479708
+    }
+  },
+  {
+    "id": "air_quality-093",
+    "name": "Preet Vihar Air Quality 093",
+    "type": "air_quality",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.70917553627611,
+    "lng": 77.15120287376885,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.463754912436706,
+      "humidityPct": 45.75449683410989,
+      "co2ppm": 1167.7092845514767,
+      "pm25": 71.65149272624286,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "air_quality-094",
+    "name": "Dilshad Garden Air Quality 094",
+    "type": "air_quality",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.602343852664635,
+    "lng": 77.3574035273624,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.650899366821978,
+      "humidityPct": 57.79381602752255,
+      "co2ppm": 1023.325561354625,
+      "pm25": 66.76429020950803,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "air_quality-095",
+    "name": "Moti Bagh Air Quality 095",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.718565664955864,
+    "lng": 77.23486916692181,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.058763205504512,
+      "humidityPct": 42.42085863404645,
+      "co2ppm": 1142.1875393331954,
+      "pm25": 76.86060346725105,
+      "aqi": 120
+    }
+  },
+  {
+    "id": "traffic_monitoring-096",
+    "name": "Jangpura Traffic 096",
+    "type": "traffic_monitoring",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.522972798210617,
+    "lng": 77.07525030346515,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 41.469894071342424,
+      "averageSpeedKph": 25.880767287446652,
+      "co2ppm": 1158.4889494653326,
+      "aqi": 151.54153050243258
+    }
+  },
+  {
+    "id": "air_quality-097",
+    "name": "Connaught Place Air Quality 097",
+    "type": "air_quality",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.636556762048297,
+    "lng": 77.2470487368781,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.295930594278616,
+      "humidityPct": 49.95635780131488,
+      "co2ppm": 1164.92379591504,
+      "pm25": 73.76992575513897,
+      "aqi": 126
+    }
+  },
+  {
+    "id": "air_quality-098",
+    "name": "Karol Bagh Air Quality 098",
+    "type": "air_quality",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.679999234317474,
+    "lng": 77.16743535502732,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.491271560262977,
+      "humidityPct": 57.077547521010274,
+      "co2ppm": 1239.261850357466,
+      "pm25": 83.0392092657648,
+      "aqi": 144
+    }
+  },
+  {
+    "id": "traffic_monitoring-099",
+    "name": "Saket Traffic 099",
+    "type": "traffic_monitoring",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.571157592953924,
+    "lng": 77.15953508378777,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 50.259138224384515,
+      "averageSpeedKph": 15.096511921436758,
+      "co2ppm": 1267.8893535898678,
+      "aqi": 163.9893646449491
+    }
+  },
+  {
+    "id": "air_quality-100",
+    "name": "Lajpat Nagar Air Quality 100",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.559326337366226,
+    "lng": 77.11015058367457,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.937466589812537,
+      "humidityPct": 51.303220847970806,
+      "co2ppm": 917.5807865621232,
+      "pm25": 63.08076728744665,
+      "aqi": 99
+    }
+  },
+  {
+    "id": "traffic_monitoring-101",
+    "name": "Dwarka Traffic 101",
+    "type": "traffic_monitoring",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.76857518039524,
+    "lng": 77.0878710489269,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 19.503827623964753,
+      "averageSpeedKph": 26.27527317553293,
+      "co2ppm": 1041.4055502774718,
+      "aqi": 131.91641424497357
+    }
+  },
+  {
+    "id": "air_quality-102",
+    "name": "Rohini Air Quality 102",
+    "type": "air_quality",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.56052360612115,
+    "lng": 77.28786880099887,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.280726166052045,
+      "humidityPct": 58.011726396754966,
+      "co2ppm": 947.770441042888,
+      "pm25": 64.98956911219226,
+      "aqi": 92
+    }
+  },
+  {
+    "id": "air_quality-103",
+    "name": "Pitampura Air Quality 103",
+    "type": "air_quality",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.6166484364649,
+    "lng": 77.33033100886415,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.102345279350992,
+      "humidityPct": 44.746684839599766,
+      "co2ppm": 1119.0837297316823,
+      "pm25": 69.53651192143676,
+      "aqi": 118
+    }
+  },
+  {
+    "id": "air_quality-104",
+    "name": "Laxmi Nagar Air Quality 104",
+    "type": "air_quality",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.542719034281774,
+    "lng": 77.19522455019819,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.449336967919955,
+      "humidityPct": 52.54153050243258,
+      "co2ppm": 992.8944793125718,
+      "pm25": 63.831913811982375,
+      "aqi": 108
+    }
+  },
+  {
+    "id": "air_quality-105",
+    "name": "Mayur Vihar Air Quality 105",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.629900866202792,
+    "lng": 77.14920535929329,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.008306100486514,
+      "humidityPct": 41.84715182323271,
+      "co2ppm": 1114.0042458548457,
+      "pm25": 75.63527317553293,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "traffic_monitoring-106",
+    "name": "New Delhi Railway Station Traffic 106",
+    "type": "traffic_monitoring",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.644675078686994,
+    "lng": 77.19492257589114,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 43.425469526380766,
+      "averageSpeedKph": 23.760915888448654,
+      "co2ppm": 1246.0766665192932,
+      "aqi": 164.22836659109453
+    }
+  },
+  {
+    "id": "air_quality-107",
+    "name": "India Gate Air Quality 107",
+    "type": "air_quality",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.573379373422824,
+    "lng": 77.25857741979569,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.81336121539207,
+      "humidityPct": 49.98936464494909,
+      "co2ppm": 1106.1731419903838,
+      "pm25": 72.90062855332158,
+      "aqi": 116
+    }
+  },
+  {
+    "id": "air_quality-108",
+    "name": "Chanakyapuri Air Quality 108",
+    "type": "air_quality",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.584523572338046,
+    "lng": 76.9974942451986,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.497872928989818,
+      "humidityPct": 49.22166508324153,
+      "co2ppm": 1125.7304998415639,
+      "pm25": 77.73100609696704,
+      "aqi": 132
+    }
+  },
+  {
+    "id": "air_quality-109",
+    "name": "Okhla Air Quality 109",
+    "type": "air_quality",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.79,
+    "lng": 77.15931224948694,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.344333016648307,
+      "humidityPct": 49.416414244973566,
+      "co2ppm": 1316.9463033484615,
+      "pm25": 84.15273476319038,
+      "aqi": 131
+    }
+  },
+  {
+    "id": "air_quality-110",
+    "name": "Noida Border Air Quality 110",
+    "type": "air_quality",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.581479870355416,
+    "lng": 77.34163601276776,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.383282848994714,
+      "humidityPct": 57.49476371817582,
+      "co2ppm": 1252.711429177916,
+      "pm25": 87.04091588844865,
+      "aqi": 140
+    }
+  },
+  {
+    "id": "traffic_monitoring-111",
+    "name": "Narela Traffic 111",
+    "type": "traffic_monitoring",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.704637671330907,
+    "lng": 77.24892970301845,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 21.706473432597704,
+      "averageSpeedKph": 21.92844399194466,
+      "co2ppm": 1069.883913964819,
+      "aqi": 130.5103743394202
+    }
+  },
+  {
+    "id": "air_quality-112",
+    "name": "Wazirabad Air Quality 112",
+    "type": "air_quality",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.596925909363936,
+    "lng": 77.1481321257313,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.145730643435673,
+      "humidityPct": 58.91206074900947,
+      "co2ppm": 1008.3561109391756,
+      "pm25": 69.68149626270868,
+      "aqi": 100
+    }
+  },
+  {
+    "id": "traffic_monitoring-113",
+    "name": "Shahdara Traffic 113",
+    "type": "traffic_monitoring",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.59189108561461,
+    "lng": 77.2633200869282,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 43.70237705728505,
+      "averageSpeedKph": 20.049055261964533,
+      "co2ppm": 1182.5558078641916,
+      "aqi": 159.81868263858632
+    }
+  },
+  {
+    "id": "air_quality-114",
+    "name": "Vasant Kunj Air Quality 114",
+    "type": "air_quality",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.59274537533369,
+    "lng": 77.22416790247324,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.664599991157594,
+      "humidityPct": 54.72836659109453,
+      "co2ppm": 1048.3742576094985,
+      "pm25": 63.813236716298846,
+      "aqi": 114
+    }
+  },
+  {
+    "id": "air_quality-115",
+    "name": "Hauz Khas Air Quality 115",
+    "type": "air_quality",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.552179779315004,
+    "lng": 77.26482511705177,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.445673318218905,
+      "humidityPct": 58.5305233852996,
+      "co2ppm": 1091.065821267615,
+      "pm25": 69.78844399194466,
+      "aqi": 114
+    }
+  },
+  {
+    "id": "traffic_monitoring-116",
+    "name": "Punjabi Bagh Traffic 116",
+    "type": "traffic_monitoring",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.574112432894136,
+    "lng": 76.9884459412299,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 52.949940123187844,
+      "averageSpeedKph": 17.597634201226757,
+      "co2ppm": 1267.9795800787106,
+      "aqi": 166.65848918467236
+    }
+  },
+  {
+    "id": "air_quality-117",
+    "name": "Preet Vihar Air Quality 117",
+    "type": "air_quality",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.722212624803564,
+    "lng": 77.15752952127134,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.083956522334482,
+      "humidityPct": 41.018998981875484,
+      "co2ppm": 1068.997899625622,
+      "pm25": 67.88905526196453,
+      "aqi": 122
+    }
+  },
+  {
+    "id": "air_quality-118",
+    "name": "Dilshad Garden Air Quality 118",
+    "type": "air_quality",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.656391931822135,
+    "lng": 77.34538548584473,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.703799796375097,
+      "humidityPct": 54.16517418944568,
+      "co2ppm": 1170.8292335421897,
+      "pm25": 75.79410771522555,
+      "aqi": 120
+    }
+  },
+  {
+    "id": "air_quality-119",
+    "name": "Moti Bagh Air Quality 119",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.6474801941938,
+    "lng": 77.35452374167858,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.333034837889137,
+      "humidityPct": 46.510374339420196,
+      "co2ppm": 1248.6484425082235,
+      "pm25": 87.17497006159392,
+      "aqi": 133
+    }
+  },
+  {
+    "id": "traffic_monitoring-120",
+    "name": "Jangpura Traffic 120",
+    "type": "traffic_monitoring",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.538784094938176,
+    "lng": 77.17424869931908,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 40.394507522229105,
+      "averageSpeedKph": 19.18769724011421,
+      "co2ppm": 1156.1041687091638,
+      "aqi": 151.6832432493684
+    }
+  },
+  {
+    "id": "traffic_monitoring-121",
+    "name": "Connaught Place Traffic 121",
+    "type": "traffic_monitoring",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.661244687726562,
+    "lng": 77.20663840630102,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 31.295394480228424,
+      "averageSpeedKph": 22.507222494555172,
+      "co2ppm": 1206.9441441645613,
+      "aqi": 144.09458494187857
+    }
+  },
+  {
+    "id": "air_quality-122",
+    "name": "Karol Bagh Air Quality 122",
+    "type": "air_quality",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.677828598966805,
+    "lng": 77.24454751153527,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.063736527717264,
+      "humidityPct": 45.8546769527602,
+      "co2ppm": 963.509510091829,
+      "pm25": 66.3748840820766,
+      "aqi": 91
+    }
+  },
+  {
+    "id": "air_quality-123",
+    "name": "Saket Air Quality 123",
+    "type": "air_quality",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.473632109536585,
+    "lng": 77.13722738269763,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.67093539055204,
+      "humidityPct": 48.79387402361317,
+      "co2ppm": 924.4052357181704,
+      "pm25": 61.71725376111455,
+      "aqi": 98
+    }
+  },
+  {
+    "id": "air_quality-124",
+    "name": "Lajpat Nagar Air Quality 124",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.599844535217933,
+    "lng": 76.9835757351489,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.258774804722634,
+      "humidityPct": 55.65848918467236,
+      "co2ppm": 996.8259704097524,
+      "pm25": 60.627697240114216,
+      "aqi": 112
+    }
+  },
+  {
+    "id": "air_quality-125",
+    "name": "Dwarka Air Quality 125",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.788554721100958,
+    "lng": 77.15510477247412,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.63169783693447,
+      "humidityPct": 54.94382096250774,
+      "co2ppm": 1037.8923508509995,
+      "pm25": 71.22722249455516,
+      "aqi": 105
+    }
+  },
+  {
+    "id": "traffic_monitoring-126",
+    "name": "Rohini Traffic 126",
+    "type": "traffic_monitoring",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.57294636857172,
+    "lng": 77.30383924632405,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 51.19755095068831,
+      "averageSpeedKph": 17.008883010157152,
+      "co2ppm": 1268.4358904202527,
+      "aqi": 165.9357758935946
+    }
+  },
+  {
+    "id": "traffic_monitoring-127",
+    "name": "Pitampura Traffic 127",
+    "type": "traffic_monitoring",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.707084289483653,
+    "lng": 77.3495956329872,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 24.137766020314302,
+      "averageSpeedKph": 25.084785389367028,
+      "co2ppm": 1084.452586311982,
+      "aqi": 140.350879616788
+    }
+  },
+  {
+    "id": "air_quality-128",
+    "name": "Laxmi Nagar Air Quality 128",
+    "type": "air_quality",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.575355063734687,
+    "lng": 77.21664142699329,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.746250122549828,
+      "humidityPct": 55.68324324936839,
+      "co2ppm": 1037.29005255175,
+      "pm25": 72.52243167162175,
+      "aqi": 106
+    }
+  },
+  {
+    "id": "air_quality-129",
+    "name": "Mayur Vihar Air Quality 129",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.596387140857935,
+    "lng": 77.21756030918523,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.636648649873678,
+      "humidityPct": 43.594584941878566,
+      "co2ppm": 1234.1462771266904,
+      "pm25": 82.57877547534416,
+      "aqi": 128
+    }
+  },
+  {
+    "id": "air_quality-130",
+    "name": "New Delhi Railway Station Air Quality 130",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.649350639781623,
+    "lng": 77.1589557752473,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.218916988375714,
+      "humidityPct": 55.54047126114892,
+      "co2ppm": 1291.7392854092614,
+      "pm25": 81.26888301015715,
+      "aqi": 142
+    }
+  },
+  {
+    "id": "traffic_monitoring-131",
+    "name": "India Gate Traffic 131",
+    "type": "traffic_monitoring",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.555159023004496,
+    "lng": 77.18206891417292,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 44.85452922480181,
+      "averageSpeedKph": 18.623416355557275,
+      "co2ppm": 1201.355622277013,
+      "aqi": 156.50826147582848
+    }
+  },
+  {
+    "id": "air_quality-132",
+    "name": "Chanakyapuri Air Quality 132",
+    "type": "air_quality",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.61751661377756,
+    "lng": 77.10093113434648,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.66944896390487,
+      "humidityPct": 44.52998677285359,
+      "co2ppm": 1302.4418721569616,
+      "pm25": 88.37367817493093,
+      "aqi": 148
+    }
+  },
+  {
+    "id": "air_quality-133",
+    "name": "Okhla Air Quality 133",
+    "type": "air_quality",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.79,
+    "lng": 77.12537585908954,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.40599735457072,
+      "humidityPct": 48.93076712607581,
+      "co2ppm": 930.9946840306458,
+      "pm25": 62.295946496350226,
+      "aqi": 87
+    }
+  },
+  {
+    "id": "traffic_monitoring-134",
+    "name": "Noida Border Traffic 134",
+    "type": "traffic_monitoring",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.558497943091332,
+    "lng": 77.22554919409481,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 52.34067686740309,
+      "averageSpeedKph": 22.514914975368885,
+      "co2ppm": 1290.0665608513045,
+      "aqi": 162.16290306848168
+    }
+  },
+  {
+    "id": "air_quality-135",
+    "name": "Narela Air Quality 135",
+    "type": "air_quality",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.69701645238202,
+    "lng": 77.29206309332722,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.487155178718922,
+      "humidityPct": 54.850879616788006,
+      "co2ppm": 928.013565358508,
+      "pm25": 56.18341635555727,
+      "aqi": 104
+    }
+  },
+  {
+    "id": "traffic_monitoring-136",
+    "name": "Wazirabad Traffic 136",
+    "type": "traffic_monitoring",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.58107219929706,
+    "lng": 77.10802209178678,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 28.617749560347875,
+      "averageSpeedKph": 26.130179141547416,
+      "co2ppm": 1068.3291887632222,
+      "aqi": 123.79705687641399
+    }
+  },
+  {
+    "id": "air_quality-137",
+    "name": "Shahdara Air Quality 137",
+    "type": "air_quality",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.68119321470904,
+    "lng": 77.21336187380903,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.817269075580406,
+      "humidityPct": 42.49268680000387,
+      "co2ppm": 1115.3815593231818,
+      "pm25": 75.21033843370155,
+      "aqi": 119
+    }
+  },
+  {
+    "id": "air_quality-138",
+    "name": "Vasant Kunj Air Quality 138",
+    "type": "air_quality",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.662960604183453,
+    "lng": 77.22388355143903,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.998537360000775,
+      "humidityPct": 54.00668668310391,
+      "co2ppm": 1123.1654612948885,
+      "pm25": 75.97491497536889,
+      "aqi": 117
+    }
+  },
+  {
+    "id": "air_quality-139",
+    "name": "Hauz Khas Air Quality 139",
+    "type": "air_quality",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.524171483711225,
+    "lng": 77.2461442877382,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.301337336620783,
+      "humidityPct": 56.008261475828476,
+      "co2ppm": 1233.2555060344778,
+      "pm25": 80.16887478017394,
+      "aqi": 138
+    }
+  },
+  {
+    "id": "air_quality-140",
+    "name": "Punjabi Bagh Air Quality 140",
+    "type": "air_quality",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.631921393339532,
+    "lng": 77.03940546025134,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.701652295165694,
+      "humidityPct": 57.72855869457999,
+      "co2ppm": 1257.277654326522,
+      "pm25": 82.31017914154741,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "traffic_monitoring-141",
+    "name": "Preet Vihar Traffic 141",
+    "type": "traffic_monitoring",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.698932308896367,
+    "lng": 77.14699824970167,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 42.362035976024345,
+      "averageSpeedKph": 22.136180734240916,
+      "co2ppm": 1211.542740795565,
+      "aqi": 158.583029068428
+    }
+  },
+  {
+    "id": "air_quality-142",
+    "name": "Dilshad Garden Air Quality 142",
+    "type": "air_quality",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.565199670356687,
+    "lng": 77.22749777874003,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.86399365107827,
+      "humidityPct": 49.66290306848168,
+      "co2ppm": 1240.9840535570927,
+      "pm25": 76.11202527840622,
+      "aqi": 134
+    }
+  },
+  {
+    "id": "air_quality-143",
+    "name": "Moti Bagh Air Quality 143",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.699114114598967,
+    "lng": 77.32815459566993,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.432580613696338,
+      "humidityPct": 57.29875662896666,
+      "co2ppm": 1225.7552211860545,
+      "pm25": 79.73308780118357,
+      "aqi": 135
+    }
+  },
+  {
+    "id": "air_quality-144",
+    "name": "Jangpura Air Quality 144",
+    "type": "air_quality",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.54449951210686,
+    "lng": 77.20726123687274,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.95975132579333,
+      "humidityPct": 41.29705687641399,
+      "co2ppm": 948.3145182603563,
+      "pm25": 66.16101798801218,
+      "aqi": 113
+    }
+  },
+  {
+    "id": "air_quality-145",
+    "name": "Connaught Place Air Quality 145",
+    "type": "air_quality",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.675995246554816,
+    "lng": 77.26370209160143,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.7594113752828,
+      "humidityPct": 42.46944755266304,
+      "co2ppm": 973.5089073951066,
+      "pm25": 63.41618073424092,
+      "aqi": 113
+    }
+  },
+  {
+    "id": "traffic_monitoring-146",
+    "name": "Karol Bagh Traffic 146",
+    "type": "traffic_monitoring",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.69800870433797,
+    "lng": 77.18487402854538,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 27.03504151792731,
+      "averageSpeedKph": 23.491999574620277,
+      "co2ppm": 1116.5090440669446,
+      "aqi": 139.39270657855377
+    }
+  },
+  {
+    "id": "air_quality-147",
+    "name": "Saket Air Quality 147",
+    "type": "air_quality",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.525872347158685,
+    "lng": 77.22493525620114,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.256458094605478,
+      "humidityPct": 50.39640665204206,
+      "co2ppm": 1052.0665309281592,
+      "pm25": 71.17245736374578,
+      "aqi": 103
+    }
+  },
+  {
+    "id": "traffic_monitoring-148",
+    "name": "Lajpat Nagar Traffic 148",
+    "type": "traffic_monitoring",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.569575678601833,
+    "lng": 77.0052883860461,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 36.53574508451857,
+      "averageSpeedKph": 25.596758479357234,
+      "co2ppm": 1054.6340967164724,
+      "aqi": 137.28396512191648
+    }
+  },
+  {
+    "id": "air_quality-149",
+    "name": "Dwarka Air Quality 149",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.729809216643645,
+    "lng": 77.09868563130824,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.912564447733892,
+      "humidityPct": 58.083029068428004,
+      "co2ppm": 1091.9809779919801,
+      "pm25": 69.93752075896366,
+      "aqi": 126
+    }
+  },
+  {
+    "id": "air_quality-150",
+    "name": "Rohini Air Quality 150",
+    "type": "air_quality",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.657264832212984,
+    "lng": 77.37191889962664,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.116605813685602,
+      "humidityPct": 50.40653719793772,
+      "co2ppm": 1157.653306640932,
+      "pm25": 76.15199957462028,
+      "aqi": 126
+    }
+  },
+  {
+    "id": "traffic_monitoring-151",
+    "name": "Pitampura Traffic 151",
+    "type": "traffic_monitoring",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.678107647485636,
+    "lng": 77.26654166498098,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 44.25241344170354,
+      "averageSpeedKph": 17.580774561935105,
+      "co2ppm": 1245.1868692449789,
+      "aqi": 162.05908250059292
+    }
+  },
+  {
+    "id": "air_quality-152",
+    "name": "Laxmi Nagar Air Quality 152",
+    "type": "air_quality",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.497605281288426,
+    "lng": 77.22698792731613,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.607884341533644,
+      "humidityPct": 46.96699904289562,
+      "co2ppm": 1241.1938847447689,
+      "pm25": 80.37675847935724,
+      "aqi": 129
+    }
+  },
+  {
+    "id": "air_quality-153",
+    "name": "Mayur Vihar Air Quality 153",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.63651533936681,
+    "lng": 77.21640327134979,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.893399808579126,
+      "humidityPct": 57.35271322008339,
+      "co2ppm": 1281.8716366943759,
+      "pm25": 80.93787956219631,
+      "aqi": 128
+    }
+  },
+  {
+    "id": "air_quality-154",
+    "name": "New Delhi Railway Station Air Quality 154",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.611348749278367,
+    "lng": 77.212661208201,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.97054264401668,
+      "humidityPct": 50.89270657855377,
+      "co2ppm": 1173.6064461692179,
+      "pm25": 79.48620672085177,
+      "aqi": 127
+    }
+  },
+  {
+    "id": "traffic_monitoring-155",
+    "name": "India Gate Traffic 155",
+    "type": "traffic_monitoring",
+    "location": "India Gate",
+    "zone": "central",
+    "lat": 28.51516309050095,
+    "lng": 77.24953069965419,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 33.94101407635026,
+      "averageSpeedKph": 25.230860764847606,
+      "co2ppm": 1090.3891230896988,
+      "aqi": 128.39218509252896
+    }
+  },
+  {
+    "id": "traffic_monitoring-156",
+    "name": "Chanakyapuri Traffic 156",
+    "type": "traffic_monitoring",
+    "location": "Chanakyapuri",
+    "zone": "central-south",
+    "lat": 28.620964031172413,
+    "lng": 76.97728427627955,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 38.061721529695205,
+      "averageSpeedKph": 23.705216411959846,
+      "co2ppm": 1147.3072836417632,
+      "aqi": 152.9905303729065
+    }
+  },
+  {
+    "id": "air_quality-157",
+    "name": "Okhla Air Quality 157",
+    "type": "air_quality",
+    "location": "Okhla",
+    "zone": "south-east",
+    "lat": 28.77921413234408,
+    "lng": 77.05833694413106,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.556793024383296,
+      "humidityPct": 44.196742764353985,
+      "co2ppm": 1030.718014119142,
+      "pm25": 70.00403666693019,
+      "aqi": 110
+    }
+  },
+  {
+    "id": "air_quality-158",
+    "name": "Noida Border Air Quality 158",
+    "type": "air_quality",
+    "location": "Noida Border",
+    "zone": "east",
+    "lat": 28.607587573169493,
+    "lng": 77.35402276151115,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.339348552870796,
+      "humidityPct": 49.156060773493664,
+      "co2ppm": 1040.3853208356393,
+      "pm25": 69.55050703817513,
+      "aqi": 113
+    }
+  },
+  {
+    "id": "air_quality-159",
+    "name": "Narela Air Quality 159",
+    "type": "air_quality",
+    "location": "Narela",
+    "zone": "north",
+    "lat": 28.68842127843997,
+    "lng": 77.31825673770086,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.331212154698733,
+      "humidityPct": 54.05908250059292,
+      "co2ppm": 1098.2419365840324,
+      "pm25": 71.3308607648476,
+      "aqi": 104
+    }
+  },
+  {
+    "id": "air_quality-160",
+    "name": "Wazirabad Air Quality 160",
+    "type": "air_quality",
+    "location": "Wazirabad",
+    "zone": "north-east",
+    "lat": 28.490603147188878,
+    "lng": 77.14810825556103,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.311816500118585,
+      "humidityPct": 54.43364083589404,
+      "co2ppm": 1043.6700316924166,
+      "pm25": 70.20521641195984,
+      "aqi": 116
+    }
+  },
+  {
+    "id": "traffic_monitoring-161",
+    "name": "Shahdara Traffic 161",
+    "type": "traffic_monitoring",
+    "location": "Shahdara",
+    "zone": "north-east",
+    "lat": 28.652688501949818,
+    "lng": 77.15752118280594,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 50.80018762208056,
+      "averageSpeedKph": 19.421621608836578,
+      "co2ppm": 1280.001330577681,
+      "aqi": 155.2623480556358
+    }
+  },
+  {
+    "id": "traffic_monitoring-162",
+    "name": "Vasant Kunj Traffic 162",
+    "type": "traffic_monitoring",
+    "location": "Vasant Kunj",
+    "zone": "south-west",
+    "lat": 28.692251372455374,
+    "lng": 77.20754870037592,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 39.96324321767315,
+      "averageSpeedKph": 22.666844077024145,
+      "co2ppm": 1180.874493518786,
+      "aqi": 149.99831570831884
+    }
+  },
+  {
+    "id": "air_quality-163",
+    "name": "Hauz Khas Air Quality 163",
+    "type": "air_quality",
+    "location": "Hauz Khas",
+    "zone": "south",
+    "lat": 28.553443444554542,
+    "lng": 77.15254214370995,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.12334738538193,
+      "humidityPct": 41.39218509252896,
+      "co2ppm": 1199.9187292279698,
+      "pm25": 81.01577047232888,
+      "aqi": 126
+    }
+  },
+  {
+    "id": "air_quality-164",
+    "name": "Punjabi Bagh Air Quality 164",
+    "type": "air_quality",
+    "location": "Punjabi Bagh",
+    "zone": "west",
+    "lat": 28.59658695566498,
+    "lng": 77.06262741472798,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.77843701850579,
+      "humidityPct": 53.990530372906505,
+      "co2ppm": 1360.1379916328776,
+      "pm25": 90.44009381104028,
+      "aqi": 145
+    }
+  },
+  {
+    "id": "air_quality-165",
+    "name": "Preet Vihar Air Quality 165",
+    "type": "air_quality",
+    "location": "Preet Vihar",
+    "zone": "east",
+    "lat": 28.765845194435116,
+    "lng": 77.05874645235514,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.298106074581302,
+      "humidityPct": 56.51548356273997,
+      "co2ppm": 1299.4008208466025,
+      "pm25": 84.30162160883657,
+      "aqi": 128
+    }
+  },
+  {
+    "id": "traffic_monitoring-166",
+    "name": "Dilshad Garden Traffic 166",
+    "type": "traffic_monitoring",
+    "location": "Dilshad Garden",
+    "zone": "north-east",
+    "lat": 28.57058759348858,
+    "lng": 77.36197141120836,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 42.575629065733665,
+      "averageSpeedKph": 22.155377994093577,
+      "co2ppm": 1168.3895085415134,
+      "aqi": 143.8739931100572
+    }
+  },
+  {
+    "id": "air_quality-167",
+    "name": "Moti Bagh Air Quality 167",
+    "type": "air_quality",
+    "location": "Moti Bagh",
+    "zone": "central-west",
+    "lat": 28.663700611284337,
+    "lng": 77.31394101524077,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.580042214968124,
+      "humidityPct": 49.9586486198823,
+      "co2ppm": 1015.1348856739613,
+      "pm25": 63.789932469171475,
+      "aqi": 118
+    }
+  },
+  {
+    "id": "air_quality-168",
+    "name": "Jangpura Air Quality 168",
+    "type": "air_quality",
+    "location": "Jangpura",
+    "zone": "south",
+    "lat": 28.590771784826075,
+    "lng": 77.1186493330608,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.49172972397646,
+      "humidityPct": 52.40039917330432,
+      "co2ppm": 880.0869091052505,
+      "pm25": 58.63036253703059,
+      "aqi": 92
+    }
+  },
+  {
+    "id": "traffic_monitoring-169",
+    "name": "Connaught Place Traffic 169",
+    "type": "traffic_monitoring",
+    "location": "Connaught Place",
+    "zone": "central",
+    "lat": 28.614061948007897,
+    "lng": 77.26021014688617,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 37.443549431161955,
+      "averageSpeedKph": 23.927549846579787,
+      "co2ppm": 1195.6799817305873,
+      "aqi": 140.02357829316315
+    }
+  },
+  {
+    "id": "air_quality-170",
+    "name": "Karol Bagh Air Quality 170",
+    "type": "air_quality",
+    "location": "Karol Bagh",
+    "zone": "central-west",
+    "lat": 28.704675886578634,
+    "lng": 77.14008270636607,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.352469611127162,
+      "humidityPct": 47.99831570831884,
+      "co2ppm": 1161.1433771625848,
+      "pm25": 73.15537799409358,
+      "aqi": 119
+    }
+  },
+  {
+    "id": "traffic_monitoring-171",
+    "name": "Saket Traffic 171",
+    "type": "traffic_monitoring",
+    "location": "Saket",
+    "zone": "south",
+    "lat": 28.517410667118504,
+    "lng": 77.19683690600554,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 46.24799512815662,
+      "averageSpeedKph": 17.25047924140585,
+      "co2ppm": 1186.9229813109196,
+      "aqi": 160.80534860382613
+    }
+  },
+  {
+    "id": "air_quality-172",
+    "name": "Lajpat Nagar Air Quality 172",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-east",
+    "lat": 28.614425710060466,
+    "lng": 77.05875966329285,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.204516539790074,
+      "humidityPct": 47.19960048671055,
+      "co2ppm": 1161.1210932984322,
+      "pm25": 74.12177471558098,
+      "aqi": 128
+    }
+  },
+  {
+    "id": "air_quality-173",
+    "name": "Dwarka Air Quality 173",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.784692211566238,
+    "lng": 77.06681233927922,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 27.93992009734211,
+      "humidityPct": 58.516852562454005,
+      "co2ppm": 1106.7655287613336,
+      "pm25": 74.76754984657978,
+      "aqi": 106
+    }
+  },
+  {
+    "id": "air_quality-174",
+    "name": "Rohini Air Quality 174",
+    "type": "air_quality",
+    "location": "Rohini",
+    "zone": "north-west",
+    "lat": 28.556428239159377,
+    "lng": 77.30265471943501,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 30.2033705124908,
+      "humidityPct": 49.3739931100572,
+      "co2ppm": 1245.4660611575732,
+      "pm25": 83.84399756407831,
+      "aqi": 121
+    }
+  },
+  {
+    "id": "air_quality-175",
+    "name": "Pitampura Air Quality 175",
+    "type": "air_quality",
+    "location": "Pitampura",
+    "zone": "north-west",
+    "lat": 28.628423924188123,
+    "lng": 77.27318136357957,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 28.37479862201144,
+      "humidityPct": 53.61698715480452,
+      "co2ppm": 1216.7599786856852,
+      "pm25": 74.75047924140584,
+      "aqi": 137
+    }
+  },
+  {
+    "id": "traffic_monitoring-176",
+    "name": "Laxmi Nagar Traffic 176",
+    "type": "traffic_monitoring",
+    "location": "Laxmi Nagar",
+    "zone": "east",
+    "lat": 28.584440854008182,
+    "lng": 77.20480782932786,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "trafficDensity": 33.301180244539864,
+      "averageSpeedKph": 20.8596422204189,
+      "co2ppm": 1134.638763073861,
+      "aqi": 137.24346940770192
+    }
+  },
+  {
+    "id": "air_quality-177",
+    "name": "Mayur Vihar Air Quality 177",
+    "type": "air_quality",
+    "location": "Mayur Vihar",
+    "zone": "east",
+    "lat": 28.659784059790837,
+    "lng": 77.24347856706653,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 29.68079890383524,
+      "humidityPct": 41.023578293163155,
+      "co2ppm": 816.7434781960728,
+      "pm25": 59.0468216017005,
+      "aqi": 89
+    }
+  },
+  {
+    "id": "air_quality-178",
+    "name": "New Delhi Railway Station Air Quality 178",
+    "type": "air_quality",
+    "location": "New Delhi Railway Station",
+    "zone": "central",
+    "lat": 28.65171183615852,
+    "lng": 77.16253018773793,
+    "source": "virtual",
+    "active": true,
+    "base": {
+      "temperatureC": 26.70471565863263,
+      "humidityPct": 42.47689439327587,
+      "co2ppm": 1062.4096890148794,
+      "pm25": 69.97572845533723,
+      "aqi": 101
+    }
+  }
+]

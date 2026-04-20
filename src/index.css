@@ -13,3 +13,12 @@
     @apply bg-white/70 backdrop-blur-xl border border-white rounded-2xl shadow-xl shadow-slate-200/50;
   }
 }
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+.leaflet-control-container .leaflet-top,
+.leaflet-control-container .leaflet-bottom {
+  z-index: 450;
+}

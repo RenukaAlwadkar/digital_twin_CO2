@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "author": "GitHub Copilot",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 10,
+      "left": 10,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "traffic_pot",
+      "top": -50,
+      "left": 240,
+      "attrs": { "value": "780" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "speed_pot",
+      "top": 120,
+      "left": 240,
+      "attrs": { "value": "420" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pollution_pot",
+      "top": 290,
+      "left": 240,
+      "attrs": { "value": "860" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "incident_btn",
+      "top": 380,
+      "left": 245,
+      "attrs": { "label": "Incident", "key": "I" }
+    }
+  ],
+  "connections": [
+    ["traffic_pot:SIG", "esp:34", "green", []],
+    ["traffic_pot:VCC", "esp:3V3", "red", []],
+    ["traffic_pot:GND", "esp:GND.1", "black", []],
+    ["speed_pot:SIG", "esp:35", "green", []],
+    ["speed_pot:VCC", "esp:3V3", "red", []],
+    ["speed_pot:GND", "esp:GND.2", "black", []],
+    ["pollution_pot:SIG", "esp:32", "green", []],
+    ["pollution_pot:VCC", "esp:3V3", "red", []],
+    ["pollution_pot:GND", "esp:GND.3", "black", []],
+    ["incident_btn:1.l", "esp:0", "blue", []],
+    ["incident_btn:2.l", "esp:GND.1", "black", []]
+  ]
+}
