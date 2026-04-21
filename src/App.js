@@ -1,19 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Globe, Wifi, WifiOff } from 'lucide-react';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
-import useMqtt from './hooks/useMqtt';
+import useBackendTelemetry from './hooks/useBackendTelemetry';
 import CityVisualizationPage from './pages/CityVisualizationPage';
 import NodeDetailsPage from './pages/NodeDetailsPage';
 import { materializeDelhiNodes } from './utils/delhiNodes';
 
 function App() {
-  const trafficCollectorTopic = 'ecotwin/delhi/traffic/collector';
-  const dummyTrafficTopic = 'ecotwin/delhi/traffic/dummy';
-  const envCollectorTopic = 'ecotwin/delhi/env/collector';
-
-  const { sensorData: collectorData, connectionStatus: collectorStatus } = useMqtt(trafficCollectorTopic);
-  const { sensorData: dummyData, connectionStatus: dummyStatus } = useMqtt(dummyTrafficTopic);
-  const { sensorData: envData, connectionStatus: envStatus } = useMqtt(envCollectorTopic);
+  const {
+    collectorData,
+    dummyData,
+    envData,
+    connectionStatus,
+  } = useBackendTelemetry();
 
   const [selectedNodeId, setSelectedNodeId] = useState('traffic-collector');
   const [tick, setTick] = useState(0);
@@ -41,7 +40,7 @@ function App() {
     [nodes, selectedNodeId]
   );
 
-  const liveFeed = [collectorStatus, dummyStatus, envStatus].some((status) => status === 'Receiving Live Wokwi Data');
+  const liveFeed = connectionStatus === 'Receiving live backend data';
 
   return (
     <div className="h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_100%)] p-4 md:p-6 xl:p-8 text-slate-800 overflow-hidden">

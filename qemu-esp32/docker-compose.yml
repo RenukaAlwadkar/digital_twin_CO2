@@ -1,0 +1,25 @@
+services:
+  qemu-esp32:
+    build:
+      context: ..
+      dockerfile: qemu-esp32/Dockerfile
+    container_name: qemu-esp32
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ../:/workspace
+    working_dir: /workspace
+    environment:
+      QEMU_TAP_NAME: qemu0
+      QEMU_TAP_CIDR: 192.168.76.1/24
+      QEMU_NAT_SUBNET: 192.168.76.0/24
+      MQTT_BROKER_URI: mqtt://broker.emqx.io
+      MQTT_TOPIC: ecotwin/delhi/traffic/dummy
+      NODE_ID: delhi-qemu-dummy-node
+      CITY_NAME: Delhi
+      CORRIDOR_NAME: QEMU Synthetic Baseline
+    tty: true
+    stdin_open: true
