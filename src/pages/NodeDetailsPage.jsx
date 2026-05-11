@@ -3,7 +3,7 @@ import { Search, ListChecks } from 'lucide-react';
 import NodeDetails from '../components/NodeDetails';
 import { formatNodeType } from '../utils/delhiNodes';
 
-const NodeDetailsPage = ({ nodes, selectedNodeId, onSelectNode }) => {
+const NodeDetailsPage = ({ nodes, selectedNodeId, onSelectNode, weather }) => {
   const [query, setQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState('all');
 
@@ -99,7 +99,7 @@ const NodeDetailsPage = ({ nodes, selectedNodeId, onSelectNode }) => {
       </div>
 
       <div className="min-h-0">
-        <NodeDetails node={selectedNode} liveStatus={selectedNode?.sourceState} />
+        <NodeDetails node={selectedNode} liveStatus={selectedNode?.sourceState} weather={weather} />
       </div>
     </div>
   );

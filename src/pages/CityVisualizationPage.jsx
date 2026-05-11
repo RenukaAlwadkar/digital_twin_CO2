@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Activity, Factory, ThermometerSun, Droplets, Wind } from 'lucide-react';
+import { Activity, Factory, ThermometerSun, Droplets, Wind, AlertCircle, CheckCircle } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import CarbonConcentrationMap from '../components/CarbonConcentrationMap';
-import { buildCityTemporalSeries, getCityKpiSummary } from '../utils/delhiNodes';
+import ScenarioControls from '../components/ScenarioControls';
+import { getCityKpiSummary } from '../utils/delhiNodes';
 
 const StatCard = ({ label, value, icon: Icon, meta }) => (
   <div className="glass-panel p-4">
@@ -21,11 +22,20 @@ const periodOptions = [
   { value: 'month', label: 'Month' },
 ];
 
-const CityVisualizationPage = ({ nodes, tick, selectedNode, onSelectNode }) => {
+const CityVisualizationPage = ({ nodes, tick, selectedNode, onSelectNode, scenarioParams, setScenarioParams, agentResult, weather }) => {
   const [period, setPeriod] = useState('day');
 
   const kpi = useMemo(() => getCityKpiSummary(nodes), [nodes]);
-  const trendSeries = useMemo(() => buildCityTemporalSeries(nodes, period, tick), [nodes, period, tick]);
+
+
+  const baseData = useMemo(() => ({
+    temperature: weather?.temperature || kpi.avgTemp || 30,
+    humidity: weather?.humidity || kpi.avgHumidity || 50,
+    wind_speed: weather?.wind_speed || 5,
+    pollution_index: kpi.avgAqi || 100,
+    time_of_day: new Date().getHours(),
+    traffic_factor: 50 // Default average traffic
+  }), [weather, kpi]);
 
   return (
     <div className="flex-1 min-h-0 overflow-hidden flex flex-col gap-6">
@@ -41,65 +51,47 @@ const CityVisualizationPage = ({ nodes, tick, selectedNode, onSelectNode }) => {
         <div className="min-h-[470px]">
           <CarbonConcentrationMap nodes={nodes} selectedNode={selectedNode} onSelectNode={onSelectNode} />
         </div>
+      </section>
 
-        <div className="glass-panel p-5 min-h-[470px] flex flex-col gap-4 overflow-hidden">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="text-2xl font-black text-slate-900">City trends</h3>
-            <div className="flex items-center gap-2">
-              {periodOptions.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setPeriod(option.value)}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] ${period === option.value ? 'bg-slate-900 text-white border-slate-900' : 'bg-white border-slate-200 text-slate-600'}`}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
+      <section className="grid min-h-[300px] gap-6 xl:grid-cols-2 pb-6">
+        <ScenarioControls baseData={baseData} />
+        
+        <div className="glass-panel p-6 h-full flex flex-col relative overflow-hidden">
+          <div className="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+            <AlertCircle className={agentResult?.status === 'critical' ? "text-rose-500" : "text-emerald-500"} />
+            <h2 className="text-xl font-black text-slate-800">Agent Recommendations</h2>
           </div>
-
-          <div className="flex-1 min-h-0 grid gap-4">
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-3 min-h-0">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 mb-2">AQI and CO2</p>
-              <div className="h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={trendSeries}>
-                    <defs>
-                      <linearGradient id="aqiFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#f97316" stopOpacity={0.35} />
-                        <stop offset="95%" stopColor="#f97316" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" />
-                    <XAxis dataKey="label" tick={{ fontSize: 11 }} />
-                    <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
-                    <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
-                    <Tooltip />
-                    <Area yAxisId="left" type="monotone" dataKey="aqi" stroke="#f97316" fill="url(#aqiFill)" strokeWidth={2} />
-                    <Area yAxisId="right" type="monotone" dataKey="co2ppm" stroke="#0ea5e9" fill="transparent" strokeWidth={2} />
-                  </AreaChart>
-                </ResponsiveContainer>
+          
+          <div className="flex-1 flex flex-col gap-4">
+            {agentResult ? (
+              <div className={`p-5 rounded-2xl border ${agentResult.status === 'critical' ? 'bg-rose-50 border-rose-200 text-rose-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900'}`}>
+                <div className="flex items-start gap-3">
+                  {agentResult.status === 'critical' ? <AlertCircle className="mt-1 flex-shrink-0" size={20} /> : <CheckCircle className="mt-1 flex-shrink-0" size={20} />}
+                  <div>
+                    <h3 className="font-bold text-lg mb-2">
+                      {agentResult.status === 'critical' ? 'High Emissions Detected' : 'All Systems Normal'}
+                    </h3>
+                    <p className="text-sm font-medium leading-relaxed opacity-90">
+                      {agentResult.recommendation}
+                    </p>
+                  </div>
+                </div>
+                {agentResult.actionParams && (
+                  <div className="mt-4 pt-4 border-t border-rose-200/50">
+                    <button 
+                      onClick={() => setScenarioParams(p => ({ ...p, ...agentResult.actionParams }))}
+                      className="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-xl shadow-md transition-all text-sm"
+                    >
+                      Apply Suggested Interventions
+                    </button>
+                  </div>
+                )}
               </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white/90 p-3 min-h-0">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500 mb-2">Temp, humidity and emission</p>
-              <div className="h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={trendSeries}>
-                    <CartesianGrid strokeDasharray="4 4" stroke="#e2e8f0" />
-                    <XAxis dataKey="label" tick={{ fontSize: 11 }} />
-                    <YAxis yAxisId="left" tick={{ fontSize: 11 }} />
-                    <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} />
-                    <Tooltip />
-                    <Area yAxisId="left" type="monotone" dataKey="temp" stroke="#ef4444" fill="transparent" strokeWidth={2} />
-                    <Area yAxisId="left" type="monotone" dataKey="humidity" stroke="#14b8a6" fill="transparent" strokeWidth={2} />
-                    <Area yAxisId="right" type="monotone" dataKey="emissionKg" stroke="#475569" fill="transparent" strokeWidth={2} />
-                  </AreaChart>
-                </ResponsiveContainer>
+            ) : (
+              <div className="flex-1 flex items-center justify-center text-slate-400 text-sm font-medium">
+                Analyzing nodes...
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>

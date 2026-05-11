@@ -1,9 +1,33 @@
-import React from 'react';
-import { Clock3, Globe2, Signal, MapPin, Activity } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Clock3, Globe2, Signal, MapPin, Activity, TrendingUp } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { fetchCo2Predictions } from '../services/aiPrediction';
 import { getNodeMetricDetails, formatNodeType } from '../utils/delhiNodes';
 
-const NodeDetails = ({ node, liveStatus }) => {
+const NodeDetails = ({ node, liveStatus, weather }) => {
   const metrics = getNodeMetricDetails(node);
+  const [predictions, setPredictions] = useState(null);
+
+  useEffect(() => {
+    if (node) {
+      const dataForPrediction = {
+        trafficDensity: node.trafficDensity || 50,
+        temperature: node.temperatureC || weather?.temperature || 30,
+        humidity: node.humidityPct || 50,
+        co2ppm: node.co2ppm || 420
+      };
+      
+      fetchCo2Predictions(dataForPrediction).then(res => {
+        if (res && res.forecast_5m) {
+          const chartData = res.forecast_5m.map((val, idx) => ({
+            hour: `+${idx+1}m`,
+            co2: val
+          }));
+          setPredictions(chartData);
+        }
+      });
+    }
+  }, [node, weather]);
 
   if (!node) {
     return (
@@ -71,6 +95,36 @@ const NodeDetails = ({ node, liveStatus }) => {
           </div>
         </div>
       </div>
+
+      {predictions && (
+        <div className="rounded-2xl bg-white border border-slate-200 p-4 shadow-sm flex-1 min-h-[160px] flex flex-col">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp size={16} className="text-blue-500" />
+            <h3 className="text-sm font-black text-slate-800">5-min AI Prediction (CO2 ppm)</h3>
+          </div>
+          <div className="flex-1 w-full min-h-0">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={predictions} margin={{ top: 5, right: 0, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="predColor" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                <XAxis dataKey="hour" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} domain={['dataMin - 50', 'dataMax + 50']} />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  itemStyle={{ color: '#0f172a', fontWeight: 'bold' }}
+                />
+                <Area type="monotone" dataKey="co2" stroke="#3b82f6" strokeWidth={2} fillOpacity={1} fill="url(#predColor)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
