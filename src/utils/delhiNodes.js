@@ -1,4 +1,3 @@
-import nodeCatalog from '../data/delhi-nodes.json';
 
 const DELHI_BOUNDS = {
   latMin: 28.4,
@@ -9,10 +8,6 @@ const DELHI_BOUNDS = {
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
-const noise = (seed) => {
-  const value = Math.sin(seed * 12.9898) * 43758.5453;
-  return value - Math.floor(value);
-};
 
 const hashString = (text = '') => {
   let hash = 0;
@@ -97,7 +92,7 @@ export const metricOptions = [
 
 export const formatNodeType = typeLabel;
 
-export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 0 } = {}) => {
+export const materializeDelhiNodes = ({ trafficData, dummyData, envData, prototypeData, tick = 0, scenarioParams = {} } = {}) => {
   const trafficInfluence = Number(trafficData?.trafficDensity ?? dummyData?.trafficDensity ?? 48);
   const trafficSpeed = Number(trafficData?.averageSpeedKph ?? dummyData?.averageSpeedKph ?? 32);
   const trafficCo2 = Number(trafficData?.co2ppm ?? dummyData?.co2ppm ?? 920);
@@ -107,93 +102,14 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 
   const envCo2 = Number(envData?.co2ppm ?? 980);
   const envPm25 = Number(envData?.pm25 ?? 70);
 
-  const catalogNodes = nodeCatalog.map((node, index) => {
-    const seed = index + 1;
-    const drift = (noise(seed + tick * 0.45) - 0.5) * 2;
-    const wave = Math.sin((tick / 3) + (seed * 0.18));
+  const { trafficReduction = 0, greenCover = 0, captureCount = 0, captureEfficiency = 50 } = scenarioParams;
+  
+  // Calculate total capture capacity
+  // Assuming each unit can reduce CO2 by some max amount based on efficiency
+  const totalCaptureReduction = captureCount > 0 ? (captureCount * (captureEfficiency / 100) * 10) : 0;
 
-    if (node.type === 'traffic_monitoring') {
-      const trafficDensity = clamp(
-        Number(node.base?.trafficDensity ?? 30) + drift * 4.5 + (trafficInfluence - 50) * 0.12 + wave * 2.5,
-        5,
-        100
-      );
-      const averageSpeedKph = clamp(
-        Number(node.base?.averageSpeedKph ?? 32) - (trafficDensity - 45) * 0.22 + drift * 1.3 + (trafficSpeed - 32) * 0.08,
-        6,
-        70
-      );
-      const co2ppm = clamp(
-        Number(node.base?.co2ppm ?? 950) + trafficDensity * 6.5 + (trafficCo2 - 900) * 0.04 + drift * 55,
-        450,
-        2300
-      );
-      const aqi = clamp(
-        Number(node.base?.aqi ?? 110) + trafficDensity * 0.8 + drift * 7 + (trafficAqi - 120) * 0.05,
-        28,
-        500
-      );
-
-      const isTrafficCollector = node.id === 'traffic-collector';
-      const hasLiveTraffic = Boolean(isTrafficCollector && trafficData);
-
-      return {
-        ...node,
-        category: 'Traffic monitoring',
-        sourceState: hasLiveTraffic ? 'live' : 'virtual',
-        trafficDensity,
-        averageSpeedKph,
-        co2ppm,
-        aqi,
-        signalStrength: clamp(trafficDensity / 100, 0.2, 1),
-        updatedAt: hasLiveTraffic ? trafficData.timestamp ?? Date.now() : Date.now() - (index * 2500),
-      };
-    }
-
-    const temperatureC = clamp(
-      Number(node.base?.temperatureC ?? 31) + drift * 1.1 + (envTemperature - 31) * 0.08,
-      18,
-      44
-    );
-    const humidityPct = clamp(
-      Number(node.base?.humidityPct ?? 54) + drift * 1.8 + (envHumidity - 54) * 0.1,
-      20,
-      96
-    );
-    const co2ppm = clamp(
-      Number(node.base?.co2ppm ?? 960) + drift * 80 + (envCo2 - 960) * 0.08,
-      420,
-      2500
-    );
-    const pm25 = clamp(
-      Number(node.base?.pm25 ?? 72) + drift * 6.5 + (envPm25 - 72) * 0.12,
-      5,
-      260
-    );
-    const aqi = clamp(
-      Number(node.base?.aqi ?? 105) + pm25 * 0.58 + drift * 6,
-      20,
-      500
-    );
-    const isEnvCollector = node.id === 'env-air-quality';
-    const hasLiveEnv = Boolean(isEnvCollector && envData);
-
-    return {
-      ...node,
-      category: 'Air quality sensor',
-      sourceState: hasLiveEnv ? 'live' : 'virtual',
-      temperatureC,
-      humidityPct,
-      co2ppm,
-      pm25,
-      aqi,
-      signalStrength: clamp((500 - aqi) / 500, 0.15, 1),
-      updatedAt: hasLiveEnv ? envData.timestamp ?? Date.now() : Date.now() - (index * 2500),
-    };
-  });
-
-  const nodeById = new Map(catalogNodes.map((node) => [String(node.id), node]));
-  const livePayloads = [trafficData, dummyData, envData].filter(Boolean);
+  const nodeById = new Map();
+  const livePayloads = [trafficData, dummyData, envData, prototypeData].filter(Boolean);
 
   livePayloads.forEach((payload) => {
     const id = normalizePayloadId(payload);
@@ -222,16 +138,27 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 
       base: {},
     };
 
-    const trafficDensity = Number(payload.trafficDensity ?? baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
+    let trafficDensity = Number(payload.trafficDensity ?? baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
+    if (inferredType === 'traffic_monitoring') {
+      trafficDensity *= (1 - trafficReduction / 100);
+    }
+    
     const averageSpeedKph = Number(payload.averageSpeedKph ?? baseNode.averageSpeedKph ?? baseNode.base?.averageSpeedKph ?? 0);
     const temperatureC = Number(payload.temperatureC ?? baseNode.temperatureC ?? baseNode.base?.temperatureC ?? 0);
     const humidityPct = Number(payload.humidityPct ?? baseNode.humidityPct ?? baseNode.base?.humidityPct ?? 0);
-    const co2ppm = Number(payload.co2ppm ?? payload.co2 ?? baseNode.co2ppm ?? baseNode.base?.co2ppm ?? 0);
+    let co2ppm = Number(payload.co2ppm ?? payload.co2 ?? baseNode.co2ppm ?? baseNode.base?.co2ppm ?? 0);
+    
+    // Apply green cover and capture units
+    co2ppm *= (1 - greenCover / 100);
+    co2ppm = Math.max(400, co2ppm - totalCaptureReduction);
+    
     const pm25 = Number(payload.pm25 ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
     const aqiFallback = inferredType === 'traffic_monitoring'
       ? clamp((trafficDensity * 0.8) + (co2ppm / 18), 20, 500)
       : clamp((pm25 * 0.58) + (co2ppm / 22), 20, 500);
-    const aqi = Number(payload.aqi ?? baseNode.aqi ?? baseNode.base?.aqi ?? aqiFallback);
+    let aqi = Number(payload.aqi ?? baseNode.aqi ?? baseNode.base?.aqi ?? aqiFallback);
+    
+    aqi = Math.max(10, aqi * (1 - greenCover / 150));
 
     const merged = {
       ...baseNode,
@@ -345,38 +272,6 @@ export const getCityKpiSummary = (nodes) => {
   };
 };
 
-export const buildCityTemporalSeries = (nodes, period = 'day', tick = 0) => {
-  const kpi = getCityKpiSummary(nodes);
-
-  const config = {
-    day: { points: 24, label: (index) => `${index}:00`, divisor: 4.2 },
-    week: { points: 7, label: (index) => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][index], divisor: 2.1 },
-    month: { points: 30, label: (index) => `D${index + 1}`, divisor: 1.35 },
-  };
-
-  const setup = config[period] ?? config.day;
-
-  return Array.from({ length: setup.points }, (_, index) => {
-    const wave = Math.sin((index / setup.divisor) + tick * 0.18);
-    const drift = (noise((index + 1) * 1.27 + tick * 0.21) - 0.5) * 2;
-
-    const aqi = clamp(kpi.avgAqi + wave * 16 + drift * 9, 20, 500);
-    const temp = clamp(kpi.avgTemp + wave * 1.6 + drift * 0.8, 14, 48);
-    const humidity = clamp(kpi.avgHumidity - wave * 4.5 + drift * 2.4, 18, 98);
-    const co2ppm = clamp(kpi.avgCo2 + wave * 90 + drift * 45, 420, 2500);
-    const emissionKg = clamp((kpi.dayEmissionKg / 24) + wave * 1.8 + drift * 1.2, 0.1, 9999);
-
-    return {
-      index,
-      label: setup.label(index),
-      aqi,
-      temp,
-      humidity,
-      co2ppm,
-      emissionKg,
-    };
-  });
-};
 
 export const buildCityHeatmap = (nodes, metricKey = 'aqi', columns = 12, rows = 8) => {
   if (!nodes.length) return [];
