@@ -9,16 +9,33 @@ const HeatLayer = ({ points }) => {
   const map = useMap();
 
   useEffect(() => {
-    const heatLayer = L.heatLayer(points, {
-      radius: 26,
-      blur: 24,
-      maxZoom: 15,
-      minOpacity: 0.22,
+    if (!points || points.length === 0) return;
+
+    // Create interpolated points for better coverage
+    const interpolatedPoints = [...points];
+    
+    // Add interpolated points between existing nodes for better coverage
+    for (let i = 0; i < points.length - 1; i++) {
+      for (let j = 1; j <= 3; j++) {
+        const lat = points[i][0] + (points[i + 1][0] - points[i][0]) * (j / 4);
+        const lng = points[i][1] + (points[i + 1][1] - points[i][1]) * (j / 4);
+        const intensity = (points[i][2] + points[i + 1][2]) / 2;
+        interpolatedPoints.push([lat, lng, intensity]);
+      }
+    }
+
+    const heatLayer = L.heatLayer(interpolatedPoints, {
+      radius: 50, // Increased radius for better coverage
+      blur: 35, // Adjusted blur for smooth appearance
+      maxZoom: 20, // Increased max zoom level
+      minOpacity: 0.12, // Adjusted minimum opacity
+      max: 1.0, // Explicit max value
       gradient: {
-        0.2: '#22c55e',
-        0.45: '#84cc16',
-        0.62: '#facc15',
-        0.78: '#f97316',
+        0.0: '#22c55e',
+        0.25: '#84cc16',
+        0.4: '#facc15',
+        0.6: '#f97316',
+        0.8: '#ef4444',
         1.0: '#dc2626',
       },
     });
@@ -60,16 +77,28 @@ const CarbonConcentrationMap = ({ nodes, selectedNode, onSelectNode }) => {
 
           {nodes.map((node) => {
             const selected = selectedNode?.id === node.id;
+            const isLive = node.sourceState === 'live';
+            
+            // Determine fill color based on live status
+            let fillColor;
+            if (isLive) {
+              fillColor = '#ec4899'; // Pink color for live nodes
+            } else if (node.type === 'traffic_monitoring') {
+              fillColor = '#f97316'; // Orange for traffic
+            } else {
+              fillColor = '#10b981'; // Green for air quality
+            }
+            
             return (
               <CircleMarker
                 key={node.id}
                 center={[Number(node.lat), Number(node.lng)]}
-                radius={selected ? 6 : 4}
+                radius={selected ? 6 : isLive ? 5 : 4}
                 pathOptions={{
-                  color: selected ? '#0f172a' : '#ffffff',
-                  fillColor: node.type === 'traffic_monitoring' ? '#f97316' : '#10b981',
-                  fillOpacity: 0.95,
-                  weight: selected ? 2 : 1,
+                  color: selected ? '#0f172a' : isLive ? '#be185d' : '#ffffff',
+                  fillColor: fillColor,
+                  fillOpacity: isLive ? 1.0 : 0.95,
+                  weight: selected ? 2 : isLive ? 1.5 : 1,
                 }}
                 eventHandlers={{
                   click: () => onSelectNode(node.id),

@@ -97,7 +97,7 @@ export const metricOptions = [
 
 export const formatNodeType = typeLabel;
 
-export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 0 } = {}) => {
+export const materializeDelhiNodes = ({ trafficData, dummyData, envData, livePrototypeData, tick = 0 } = {}) => {
   const trafficInfluence = Number(trafficData?.trafficDensity ?? dummyData?.trafficDensity ?? 48);
   const trafficSpeed = Number(trafficData?.averageSpeedKph ?? dummyData?.averageSpeedKph ?? 32);
   const trafficCo2 = Number(trafficData?.co2ppm ?? dummyData?.co2ppm ?? 920);
@@ -193,10 +193,23 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 
   });
 
   const nodeById = new Map(catalogNodes.map((node) => [String(node.id), node]));
-  const livePayloads = [trafficData, dummyData, envData].filter(Boolean);
+  const livePayloads = [trafficData, dummyData, envData, livePrototypeData].filter(Boolean);
 
   livePayloads.forEach((payload) => {
-    const id = normalizePayloadId(payload);
+    let id;
+    
+    // Special handling for different data sources
+    if (payload.device_id && payload.device_id.includes('esp32')) {
+      id = 'esp32-sensor-001'; // Map to our ESP32 simulator node
+    } else if (payload.co2 !== undefined && Object.keys(payload).length === 1) {
+      // CO2-only format from ESP32 hardware - map to live prototype node
+      id = 'live-prototype-123';
+    } else if (payload.node_id === 'live_prototype_data_123' || payload.id === 'live_prototype_data_123') {
+      id = 'live-prototype-123'; // Map to our live prototype node
+    } else {
+      id = normalizePayloadId(payload);
+    }
+    
     if (!id) return;
 
     const inferredType = inferTypeFromPayload(payload);
@@ -222,12 +235,34 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, tick = 
       base: {},
     };
 
-    const trafficDensity = Number(payload.trafficDensity ?? baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
-    const averageSpeedKph = Number(payload.averageSpeedKph ?? baseNode.averageSpeedKph ?? baseNode.base?.averageSpeedKph ?? 0);
-    const temperatureC = Number(payload.temperatureC ?? baseNode.temperatureC ?? baseNode.base?.temperatureC ?? 0);
-    const humidityPct = Number(payload.humidityPct ?? baseNode.humidityPct ?? baseNode.base?.humidityPct ?? 0);
-    const co2ppm = Number(payload.co2ppm ?? payload.co2 ?? baseNode.co2ppm ?? baseNode.base?.co2ppm ?? 0);
-    const pm25 = Number(payload.pm25 ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
+    // Extract values - handle different data formats
+    let temperatureC, humidityPct, co2ppm, pm25, trafficDensity, averageSpeedKph;
+    
+    if (payload.device_id && payload.device_id.includes('esp32')) {
+      // ESP32 simulator sensor data format
+      temperatureC = Number(payload.temperature?.value ?? baseNode.temperatureC ?? baseNode.base?.temperatureC ?? 0);
+      humidityPct = Number(payload.humidity?.value ?? baseNode.humidityPct ?? baseNode.base?.humidityPct ?? 0);
+      co2ppm = Number(payload.co2?.value ?? baseNode.co2ppm ?? baseNode.base?.co2ppm ?? 0);
+      pm25 = Number(payload.pm25?.value ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
+      trafficDensity = Number(payload.trafficDensity ?? baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
+      averageSpeedKph = Number(payload.averageSpeedKph ?? baseNode.averageSpeedKph ?? baseNode.base?.averageSpeedKph ?? 0);
+    } else if (payload.co2 !== undefined && Object.keys(payload).length === 1) {
+      // CO2-only format from ESP32 hardware - use base values for other sensors
+      temperatureC = Number(baseNode.temperatureC ?? baseNode.base?.temperatureC ?? 26.5);
+      humidityPct = Number(baseNode.humidityPct ?? baseNode.base?.humidityPct ?? 55.0);
+      co2ppm = Number(payload.co2); // Use the actual CO2 value from ESP32
+      pm25 = Number(baseNode.pm25 ?? baseNode.base?.pm25 ?? 40.0);
+      trafficDensity = Number(baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
+      averageSpeedKph = Number(baseNode.averageSpeedKph ?? baseNode.base?.averageSpeedKph ?? 0);
+    } else {
+      // Standard format
+      temperatureC = Number(payload.temperatureC ?? baseNode.temperatureC ?? baseNode.base?.temperatureC ?? 0);
+      humidityPct = Number(payload.humidityPct ?? baseNode.humidityPct ?? baseNode.base?.humidityPct ?? 0);
+      co2ppm = Number(payload.co2ppm ?? payload.co2 ?? baseNode.co2ppm ?? baseNode.base?.co2ppm ?? 0);
+      pm25 = Number(payload.pm25 ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
+      trafficDensity = Number(payload.trafficDensity ?? baseNode.trafficDensity ?? baseNode.base?.trafficDensity ?? 0);
+      averageSpeedKph = Number(payload.averageSpeedKph ?? baseNode.averageSpeedKph ?? baseNode.base?.averageSpeedKph ?? 0);
+    }
     const aqiFallback = inferredType === 'traffic_monitoring'
       ? clamp((trafficDensity * 0.8) + (co2ppm / 18), 20, 500)
       : clamp((pm25 * 0.58) + (co2ppm / 22), 20, 500);

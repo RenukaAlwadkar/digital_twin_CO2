@@ -10,10 +10,12 @@ function App() {
   const trafficCollectorTopic = 'ecotwin/delhi/traffic/collector';
   const dummyTrafficTopic = 'ecotwin/delhi/traffic/dummy';
   const envCollectorTopic = 'ecotwin/delhi/env/collector';
+  const livePrototypeTopic = 'ecotwin/live_prototype_data_123';
 
   const { sensorData: collectorData, connectionStatus: collectorStatus } = useMqtt(trafficCollectorTopic);
   const { sensorData: dummyData, connectionStatus: dummyStatus } = useMqtt(dummyTrafficTopic);
   const { sensorData: envData, connectionStatus: envStatus } = useMqtt(envCollectorTopic);
+  const { sensorData: livePrototypeData, connectionStatus: livePrototypeStatus } = useMqtt(livePrototypeTopic);
 
   const [selectedNodeId, setSelectedNodeId] = useState('traffic-collector');
   const [tick, setTick] = useState(0);
@@ -24,8 +26,8 @@ function App() {
   }, []);
 
   const nodes = useMemo(
-    () => materializeDelhiNodes({ trafficData: collectorData, dummyData, envData, tick }),
-    [collectorData, dummyData, envData, tick]
+    () => materializeDelhiNodes({ trafficData: collectorData, dummyData, envData, livePrototypeData, tick }),
+    [collectorData, dummyData, envData, livePrototypeData, tick]
   );
 
   useEffect(() => {
@@ -41,7 +43,7 @@ function App() {
     [nodes, selectedNodeId]
   );
 
-  const liveFeed = [collectorStatus, dummyStatus, envStatus].some((status) => status === 'Receiving Live Wokwi Data');
+  const liveFeed = [collectorStatus, dummyStatus, envStatus, livePrototypeStatus].some((status) => status === 'Receiving Live Wokwi Data' || status === 'Receiving Live Prototype Data');
 
   return (
     <div className="h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_100%)] p-4 md:p-6 xl:p-8 text-slate-800 overflow-hidden">

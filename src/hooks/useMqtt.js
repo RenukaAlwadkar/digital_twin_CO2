@@ -16,8 +16,14 @@ const useMqtt = (topic) => {
     });
 
     client.on('connect', () => {
-      // We are connected to the cloud, but haven't received Wokwi data yet
-      setConnectionStatus('Waiting for Wokwi Data...');
+      // We are connected to the cloud, but haven't received data yet
+      if (topic.includes('esp32')) {
+        setConnectionStatus('Waiting for ESP32 Data...');
+      } else if (topic.includes('live_prototype')) {
+        setConnectionStatus('Waiting for Prototype Data...');
+      } else {
+        setConnectionStatus('Waiting for Wokwi Data...');
+      }
       client.subscribe(topic, (err) => {
         if (err) {
           console.error('Subscription error:', err);
@@ -30,11 +36,18 @@ const useMqtt = (topic) => {
     client.on('message', (receivedTopic, message) => {
       if (receivedTopic === topic) {
         try {
-          console.log('📡 [MQTT] Raw Message Received:', message.toString());
+          console.log('?? [MQTT] Raw Message Received:', message.toString());
           const data = JSON.parse(message.toString());
           setSensorData(data);
-          // Once we get a message, Wokwi is definitely connected
-          setConnectionStatus('Receiving Live Wokwi Data');
+          
+          // Set appropriate status based on topic
+          if (topic.includes('esp32')) {
+            setConnectionStatus('Receiving Live ESP32 Data');
+          } else if (topic.includes('live_prototype')) {
+            setConnectionStatus('Receiving Live Prototype Data');
+          } else {
+            setConnectionStatus('Receiving Live Wokwi Data');
+          }
         } catch (e) {
           console.error('Failed to parse MQTT message as JSON:', message.toString());
         }

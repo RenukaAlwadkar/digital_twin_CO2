@@ -78,11 +78,11 @@ const NodeDirectory = ({
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${node.type === 'traffic_monitoring' ? 'bg-orange-500/15 text-orange-700' : 'bg-emerald-500/15 text-emerald-700'} ${selected ? 'text-white/90 bg-white/10' : ''}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${isLive ? 'bg-pink-500/15 text-pink-700' : node.type === 'traffic_monitoring' ? 'bg-orange-500/15 text-orange-700' : 'bg-emerald-500/15 text-emerald-700'} ${selected ? 'text-white/90 bg-white/10' : ''}`}>
                       <LocateFixed size={11} />
                       {formatNodeType(node.type)}
                     </span>
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${isLive ? 'bg-sky-500/15 text-sky-700' : 'bg-slate-100 text-slate-500'} ${selected ? 'text-white/90 bg-white/10' : ''}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${isLive ? 'bg-pink-500/20 text-pink-700 border border-pink-300' : 'bg-slate-100 text-slate-500'} ${selected ? 'text-white/90 bg-white/10' : ''}`}>
                       <Sparkles size={11} />
                       {isLive ? 'Live' : 'Ready'}
                     </span>

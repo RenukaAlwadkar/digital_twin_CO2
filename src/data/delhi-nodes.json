@@ -35,6 +35,42 @@
     }
   },
   {
+    "id": "esp32-sensor-001",
+    "name": "ESP32 Environmental Sensor",
+    "type": "air_quality",
+    "location": "Lajpat Nagar",
+    "zone": "south-central",
+    "lat": 28.5672,
+    "lng": 77.2444,
+    "source": "live",
+    "active": true,
+    "base": {
+      "temperatureC": 25.0,
+      "humidityPct": 60.0,
+      "co2ppm": 450.0,
+      "pm25": 35.0,
+      "aqi": 85
+    }
+  },
+  {
+    "id": "live-prototype-123",
+    "name": "Live Prototype Sensor",
+    "type": "air_quality",
+    "location": "Dwarka",
+    "zone": "south-west",
+    "lat": 28.5921,
+    "lng": 77.0439,
+    "source": "live",
+    "active": true,
+    "base": {
+      "temperatureC": 26.5,
+      "humidityPct": 55.0,
+      "co2ppm": 480.0,
+      "pm25": 40.0,
+      "aqi": 90
+    }
+  },
+  {
     "id": "air_quality-003",
     "name": "Saket Air Quality 003",
     "type": "air_quality",
