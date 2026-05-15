@@ -3,7 +3,7 @@ import { Settings2, Activity } from 'lucide-react';
 
 const API_URL = 'http://localhost:8000';
 
-const ScenarioControls = ({ baseData }) => {
+const ScenarioControls = ({ baseData, onSimulationResult }) => {
   const [params, setParams] = useState({
     trafficLevel: 'medium',
     industrialEmissions: 0,
@@ -20,12 +20,22 @@ const ScenarioControls = ({ baseData }) => {
     try {
       const payload = {
         base_data: {
-          temperature: baseData.temperature || 30,
-          humidity: baseData.humidity || 50,
-          wind_speed: baseData.wind_speed || 5,
-          pollution_index: baseData.pollution_index || 100,
-          time_of_day: baseData.time_of_day || new Date().getHours(),
-          traffic_factor: baseData.traffic_factor || 50
+          temperature:     baseData.temperature     || baseData.temperatureC || 30,
+          humidity:        baseData.humidity        || baseData.humidityPct  || 50,
+          wind_speed:      baseData.wind_speed      || 5,
+          pollution_index: baseData.pollution_index || baseData.aqi || 100,
+          time_of_day:     baseData.time_of_day     || new Date().getHours(),
+          traffic_factor:  baseData.traffic_factor  || 50,
+          // New 20-feature model support
+          pm2_5:  baseData.pm2_5  || baseData.pm25  || 25,
+          pm10:   baseData.pm10   || 40,
+          no:     baseData.no     || 5,
+          no2:    baseData.no2    || 15,
+          nh3:    baseData.nh3    || 2,
+          co:     baseData.co     || 400,
+          so2:    baseData.so2    || 10,
+          o3:     baseData.o3     || 30,
+          aqi:    baseData.aqiRaw || baseData.aqi || 2
         },
         traffic_level: params.trafficLevel,
         green_cover_increase: params.greenCover,
@@ -41,6 +51,15 @@ const ScenarioControls = ({ baseData }) => {
       
       const data = await res.json();
       setResult(data);
+      // Notify parent so it can save to Firestore
+      if (onSimulationResult) {
+        onSimulationResult(data, {
+          traffic_level:          params.trafficLevel,
+          green_cover_increase:   params.greenCover,
+          wind_speed_change:      params.windSpeedChange,
+          industrial_emissions:   params.industrialEmissions,
+        });
+      }
     } catch (err) {
       console.error("Simulation failed", err);
     }

@@ -5,12 +5,12 @@ def generate_synthetic_data(num_samples=10000):
     np.random.seed(42)
     
     # Generate features
-    time_of_day = np.random.randint(0, 24, num_samples)
-    temperature = np.random.uniform(15, 45, num_samples)
-    humidity = np.random.uniform(20, 95, num_samples)
-    wind_speed = np.random.uniform(0, 15, num_samples)
-    pollution_index = np.random.uniform(20, 500, num_samples)
-    traffic_factor = np.random.uniform(0, 100, num_samples)
+    # time_of_day = np.random.randint(0, 24, num_samples)
+    # temperature = np.random.uniform(15, 45, num_samples)
+    # humidity = np.random.uniform(20, 95, num_samples)
+    # wind_speed = np.random.uniform(0, 15, num_samples)
+    # pollution_index = np.random.uniform(20, 500, num_samples)
+    # traffic_factor = np.random.uniform(0, 100, num_samples)
     
     # Simulate CO2 dependency
     # Base CO2

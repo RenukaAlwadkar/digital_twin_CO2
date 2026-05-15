@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { AlertCircle, CheckCircle, Settings2 } from 'lucide-react';
 import ScenarioControls from '../components/ScenarioControls';
 import { getCityKpiSummary } from '../utils/delhiNodes';
+import { saveSimulation } from '../services/firestoreService';
 
 const WhatIfPage = ({ nodes, weather, agentResult, setScenarioParams }) => {
   const kpi = useMemo(() => getCityKpiSummary(nodes), [nodes]);
@@ -27,7 +28,13 @@ const WhatIfPage = ({ nodes, weather, agentResult, setScenarioParams }) => {
 
       <div className="grid gap-6 xl:grid-cols-2">
         {/* Scenario Controls */}
-        <ScenarioControls baseData={baseData} />
+        <ScenarioControls
+          baseData={baseData}
+          onSimulationResult={(result, params) => {
+            // Auto-save every simulation run to Firestore
+            saveSimulation(result, params);
+          }}
+        />
 
         {/* Agent Recommendations */}
         <div className="glass-panel p-6 flex flex-col relative overflow-hidden">

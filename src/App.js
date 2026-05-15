@@ -1,18 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Globe, Wifi, WifiOff, LayoutDashboard, Network, FlaskConical } from 'lucide-react';
+import { Globe, Wifi, WifiOff, LayoutDashboard, Network, FlaskConical, History } from 'lucide-react';
 import useMqtt from './hooks/useMqtt';
 import useCities from './hooks/useCities';
 import CityVisualizationPage from './pages/CityVisualizationPage';
 import NodeDetailsPage from './pages/NodeDetailsPage';
 import WhatIfPage from './pages/WhatIfPage';
+import HistoryPage from './pages/HistoryPage';
 import { materializeDelhiNodes } from './utils/delhiNodes';
 import { agentInstance } from './services/agent';
 import { fetchOpenWeatherData as fetchDelhiWeather } from './services/openWeatherApi';
+import { saveCityTelemetry, testFirestoreConnection } from './services/firestoreService';
 
 const TABS = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'nodes',     label: 'Nodes',     icon: Network },
   { id: 'whatif',   label: 'What-If',   icon: FlaskConical },
+  { id: 'history',  label: 'History',   icon: History },
 ];
 
 function App() {
@@ -39,10 +42,15 @@ function App() {
   // Real-time data for all Indian cities
   const { cityNodes } = useCities();
 
+  // Test Firestore connection once on startup
+  useEffect(() => {
+    testFirestoreConnection();
+  }, []);
+
   // Fetch real weather every 10s
   useEffect(() => {
     const fetchWeather = () => {
-      fetchDelhiWeather().then(data => { if (data) setWeather(data); });
+      fetchDelhiWeather(28.6139, 77.2090, 'New Delhi').then(data => { if (data) setWeather(data); });
     };
     fetchWeather();
     const interval = setInterval(fetchWeather, 10000);
@@ -111,30 +119,36 @@ function App() {
     if (nodes.length > 0) setAgentResult(agentInstance.analyze(nodes));
   }, [nodes]);
 
-  // Save telemetry history every 2 minutes
+  // Save ALL city telemetry to Firestore every 60 seconds
   useEffect(() => {
-    const id = setInterval(async () => {
-      try {
-        await fetch('http://localhost:8000/history/save', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            temperature:    combinedEnvData.temperatureC || 30,
-            humidity:       combinedEnvData.humidityPct  || 50,
-            wind_speed:     weather?.wind_speed          || 5,
-            pollution_index: combinedEnvData.aqi         || 100,
-            traffic_factor: 50,
-            time_of_day:    new Date().getHours(),
-            co2ppm:         combinedEnvData.co2ppm       || 420,
-          }),
-        });
-        console.log('📦 Telemetry history saved.');
-      } catch (err) {
-        console.error('Failed to save history', err);
-      }
-    }, 2 * 60 * 1000);
+    if (!cityNodes.length) return;
+    const saveAll = () => {
+      cityNodes.forEach(node => {
+        // city nodes use temperatureC / humidityPct / pm25 / aqiRaw (see useCities.js)
+        if (node.id && node.temperatureC != null) {
+          saveCityTelemetry(node.id, node.location || node.name, {
+            temperature:  node.temperatureC,
+            humidity:     node.humidityPct,
+            wind_speed:   node.wind_speed,
+            aqi:          node.aqiRaw,        // raw 1-5 scale
+            no:           node.no,
+            pm2_5:        node.pm25,
+            pm10:         node.pm10,
+            no2:          node.no2,
+            so2:          node.so2,
+            o3:           node.o3,
+            co:           node.co,
+            co2ppm:       node.co2ppm,
+            weatherDesc:  node.weatherDesc,
+            pressure:     node.pressure,
+          });
+        }
+      });
+    };
+    saveAll(); // Save immediately on first load
+    const id = setInterval(saveAll, 60 * 1000); // Then every 60s
     return () => clearInterval(id);
-  }, [combinedEnvData, weather]);
+  }, [cityNodes]);
 
   const selectedNode = useMemo(
     () => nodes.find(n => n.id === selectedNodeId) ?? nodes[0] ?? null,
@@ -215,6 +229,9 @@ function App() {
               agentResult={agentResult}
               setScenarioParams={setScenarioParams}
             />
+          )}
+          {activeTab === 'history' && (
+            <HistoryPage />
           )}
         </div>
       </div>

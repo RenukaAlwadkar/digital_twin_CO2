@@ -13,6 +13,7 @@ const CITIES = [
   { id: 'ahmedabad',   name: 'Ahmedabad',   lat: 23.0225, lng: 72.5714, state: 'Gujarat' },
   { id: 'jaipur',      name: 'Jaipur',      lat: 26.9124, lng: 75.7873, state: 'Rajasthan' },
   { id: 'lucknow',     name: 'Lucknow',     lat: 26.8467, lng: 80.9462, state: 'Uttar Pradesh' },
+  { id: 'wardha',      name: 'Wardha',      lat: 20.7453, lng: 78.6022, state: 'Maharashtra' },
 ];
 
 export default CITIES;
