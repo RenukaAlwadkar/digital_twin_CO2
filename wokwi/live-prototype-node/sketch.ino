@@ -1,35 +1,40 @@
+/**
+ * EcoTwin — Wokwi ESP32 Prototype Node
+ * =====================================
+ * This code is integrated directly from the Wokwi simulation.
+ * It reads DHT22 and analog sensors, then publishes JSON via MQTT.
+ */
+
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include <DHT.h>
-#include <ArduinoJson.h>
+#include "DHT.h"
 
-// WiFi credentials for Wokwi
+// ---------------- WIFI ----------------
 const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
-// EMQX MQTT Broker settings
+// ---------------- MQTT (EMQX) ----------------
 const char* mqtt_server = "broker.emqx.io";
 const int mqtt_port = 1883;
-const char* mqtt_topic = "ecotwin/live_data";
-
-// Sensor setup
-#define DHTPIN 15
-#define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
+const char* topic = "ecotwin/live_data";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+// ---------------- DHT ----------------
+#define DHTPIN 15
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
+
+// ---------------- ANALOG PINS ----------------
+#define CO2_PIN 34
+#define CO_PIN  35
+
 unsigned long lastMsg = 0;
-float base_co2 = 420.0; // Base outdoor CO2
 
+// ---------------- WIFI CONNECT ----------------
 void setup_wifi() {
-  delay(10);
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-
-  WiFi.mode(WIFI_STA);
+  Serial.print("Connecting to WiFi");
   WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -37,78 +42,89 @@ void setup_wifi() {
     Serial.print(".");
   }
 
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println("\n✅ WiFi Connected!");
 }
 
+// ---------------- MQTT CONNECT ----------------
 void reconnect() {
   while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    String clientId = "ESP32Client-EcoTwin-";
-    clientId += String(random(0, 1000));
-    
+    Serial.print("Connecting to MQTT (EMQX)...");
+
+    String clientId = "esp32-" + String(random(1000, 9999));
+
     if (client.connect(clientId.c_str())) {
-      Serial.println("connected");
+      Serial.println("✅ Connected!");
     } else {
-      Serial.print("failed, rc=");
+      Serial.print("❌ Failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
+      Serial.println(" retrying...");
+      delay(2000);
     }
   }
 }
 
+// ---------------- SETUP ----------------
 void setup() {
   Serial.begin(115200);
+  delay(1000);
+
+  Serial.println("🚀 Starting System...");
+  randomSeed(analogRead(0)); // Prevent MQTT Client ID collisions
+
   setup_wifi();
   client.setServer(mqtt_server, mqtt_port);
   dht.begin();
-  randomSeed(analogRead(0));
 }
 
+// ---------------- LOOP ----------------
 void loop() {
-  if (!client.connected()) {
-    reconnect();
-  }
+  if (!client.connected()) reconnect();
   client.loop();
 
-  unsigned long now = millis();
-  if (now - lastMsg > 3000) { // Publish every 3 seconds
-    lastMsg = now;
+  if (millis() - lastMsg > 3000) {
+    lastMsg = millis();
 
-    // Read DHT22
-    float humidity = dht.readHumidity();
-    float temperature = dht.readTemperature();
+    // ---- SENSOR READ ----
+    float temp = dht.readTemperature();
+    float hum  = dht.readHumidity();
 
-    // Check if any reads failed
-    if (isnan(humidity) || isnan(temperature)) {
-      Serial.println("Failed to read from DHT sensor!");
+    int co2_raw = analogRead(CO2_PIN);
+    int co_raw  = analogRead(CO_PIN);
+
+    // ---- SAFETY CHECK ----
+    // If DHT22 isn't ready, it returns NAN, which breaks JSON structure.
+    if (isnan(temp) || isnan(hum)) {
+      Serial.println("⚠️ Warning: DHT22 sensor not ready. Skipping MQTT publish.");
       return;
     }
 
-    // Simulate CO2
-    // CO2 fluctuates based on random noise and slight temperature influence
-    float co2_noise = random(-15, 20);
-    float simulated_co2 = base_co2 + co2_noise + (temperature > 30 ? 15 : 0);
+    // ---- CONVERSION ----
+    float co2 = map(co2_raw, 0, 4095, 400, 2000);
+    float co  = map(co_raw,  0, 4095, 0, 50);
 
-    // Create JSON Payload
-    StaticJsonDocument<200> doc;
-    doc["co2"] = simulated_co2;
-    doc["temperature"] = temperature;
-    doc["humidity"] = humidity;
-    
-    // Add fake timestamp for simulation purposes (Wokwi doesn't have an RTC out of the box)
-    // In real hardware, use an NTP client
-    doc["timestamp"] = now; 
+    // ---- SERIAL OUTPUT ----
+    Serial.println("\n===== SENSOR DATA =====");
+    Serial.print("🌡 Temp: ");   Serial.print(temp);  Serial.println(" °C");
+    Serial.print("💧 Hum: ");    Serial.print(hum);   Serial.println(" %");
+    Serial.print("🌫 CO2: ");    Serial.print(co2);   Serial.println(" ppm");
+    Serial.print("☠ CO: ");     Serial.print(co);    Serial.println(" ppm");
+    Serial.println("========================");
 
-    char output[200];
-    serializeJson(doc, output);
+    // ---- JSON PAYLOAD ----
+    String payload = "{";
+    payload += "\"node_id\":\"wokwi-esp32\",";
+    payload += "\"co2\":" + String(co2) + ",";
+    payload += "\"co_ppm\":" + String(co) + ",";
+    payload += "\"temperature\":" + String(temp) + ",";
+    payload += "\"humidity\":" + String(hum) + ",";
+    payload += "\"timestamp\":" + String(millis());
+    payload += "}";
 
-    Serial.print("Publishing message: ");
-    Serial.println(output);
-    
-    client.publish(mqtt_topic, output);
+    Serial.print("📡 Publishing to MQTT... ");
+    if (client.publish(topic, payload.c_str())) {
+      Serial.println("OK");
+    } else {
+      Serial.println("FAILED (check broker status)");
+    }
   }
 }

@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Activity, Factory, ThermometerSun, Droplets, Wind, Gauge, ChevronDown, MapPin } from 'lucide-react';
 import CarbonConcentrationMap from '../components/CarbonConcentrationMap';
+import WokwiLiveFeed from '../components/WokwiLiveFeed';
 import { getCityKpiSummary } from '../utils/delhiNodes';
 import CITIES from '../data/cities';
 
@@ -26,7 +27,7 @@ const cityOptions = [
   ...CITIES.map(c => ({ value: c.id, label: `📍 ${c.name}` })),
 ];
 
-const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) => {
+const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather, rawWeather, wokwiProps }) => {
   const [focusCity, setFocusCity] = useState('wardha');
 
   // Filter nodes by selected city for KPI stats
@@ -116,9 +117,18 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
       {/* Live API details for selected city */}
       {displayWeather && (
         <section className="glass-panel p-5">
-          <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-1">
-            ☁️ Live OpenWeather API — {focusCityConfig?.name ?? 'New Delhi'}
-          </p>
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-1">
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
+              ☁️ Live Weather — {focusCityConfig?.name ?? 'New Delhi'}
+            </p>
+            {/* Source badge */}
+            <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest
+              ${weather?.source === 'wokwi'
+                ? 'bg-indigo-100 text-indigo-700 border border-indigo-200'
+                : 'bg-sky-50 text-sky-600 border border-sky-200'}`}>
+              {weather?.source === 'wokwi' ? '⚡ Wokwi' : '☁️ OpenWeather'}
+            </span>
+          </div>
           {displayWeather.weatherDesc && (
             <p className="text-xs text-slate-400 capitalize mb-3">{displayWeather.weatherDesc}</p>
           )}
@@ -141,6 +151,16 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
           </div>
         </section>
       )}
+
+      {/* ── Wokwi Live Prototype Panel ── */}
+      <WokwiLiveFeed
+        reading={wokwiProps?.reading}
+        history={wokwiProps?.history}
+        connectionStatus={wokwiProps?.connectionStatus}
+        isLive={wokwiProps?.isLive}
+        rawWeather={rawWeather}
+        weather={weather}
+      />
     </div>
   );
 };

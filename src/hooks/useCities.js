@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import CITIES from '../data/cities';
 import { fetchOpenWeatherData } from '../services/openWeatherApi';
+import { calculateAqiFromPm25 } from '../utils/physicsEngine';
 
 /**
  * Converts raw OpenWeather API result into a structured node object for a given city.
  */
 const buildCityNode = (city, data) => {
-  const aqiRaw    = data.aqi;                             // 1–5 scale
-  const aqiScaled = (aqiRaw / 5) * 500;                   // normalise to 0–500 for heatmap
+  const aqiRaw    = data.aqi;                             // 1–5 scale (API's own index)
+  const realAqi   = calculateAqiFromPm25(data.pm2_5);     // 0–500 IND-AQI Scale
 
-  // Estimate CO2 from CO + NO2 as an API proxy (no direct CO2 endpoint available)
-  const coPpm          = data.co / 1.145;                 // µg/m³ → ppm approx
-  const no2Ppm         = data.no2 / 1000;
-  const co2Estimated   = Math.max(400, 420 + coPpm * 0.12 + no2Ppm * 8000 + (aqiRaw - 1) * 80);
+  // Note: OpenWeather API does NOT provide CO2. 
+  // We set it to null to avoid fake data. Wokwi nodes provide real CO2.
+  const co2ppm = null; 
 
   return {
     id:          `city-${city.id}`,
@@ -45,9 +45,9 @@ const buildCityNode = (city, data) => {
     o3:      data.o3,
     co:      data.co,
     nh3:     data.nh3,
-    aqi:     aqiScaled,
+    aqi:     realAqi,
     aqiRaw,
-    co2ppm:  co2Estimated,
+    co2ppm,
 
     signalStrength: Math.max(0.2, 1 - (aqiRaw - 1) / 4),
     updatedAt:      Date.now(),

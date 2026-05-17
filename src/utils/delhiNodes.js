@@ -1,3 +1,4 @@
+import { calculateAqiFromPm25, calculateTrafficEmissionsKg } from './physicsEngine';
 
 const DELHI_BOUNDS = {
   latMin: 28.4,
@@ -153,12 +154,14 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, prototy
     co2ppm = Math.max(400, co2ppm - totalCaptureReduction);
     
     const pm25 = Number(payload.pm25 ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
-    const aqiFallback = inferredType === 'traffic_monitoring'
-      ? clamp((trafficDensity * 0.8) + (co2ppm / 18), 20, 500)
-      : clamp((pm25 * 0.58) + (co2ppm / 22), 20, 500);
+    const aqiFallback = calculateAqiFromPm25(pm25);
     let aqi = Number(payload.aqi ?? baseNode.aqi ?? baseNode.base?.aqi ?? aqiFallback);
     
-    aqi = Math.max(10, aqi * (1 - greenCover / 150));
+    // Green cover impact on PM2.5 -> AQI (simulated effect)
+    if (greenCover > 0) {
+      const reducedPm25 = pm25 * (1 - greenCover / 200);
+      aqi = calculateAqiFromPm25(reducedPm25);
+    }
 
     const merged = {
       ...baseNode,
@@ -253,13 +256,17 @@ export const getCityKpiSummary = (nodes) => {
     ? airNodes.reduce((sum, node) => sum + Number(node.humidityPct ?? 0), 0) / airNodes.length
     : 0;
 
-  // A simple emission estimate derived from CO2 concentration above outdoor baseline.
-  const emissionPerHourKg = nodes.reduce((sum, node) => {
-    const co2AboveBaseline = Math.max(0, Number(node.co2ppm ?? 0) - 420);
-    return sum + (co2AboveBaseline * 0.00125);
+  // EMEP/COPERT speed-dependent emission calculation
+  const dayEmissionKg = nodes.reduce((sum, node) => {
+    if (node.type === 'traffic_monitoring') {
+      return sum + calculateTrafficEmissionsKg(
+        node.averageSpeedKph ?? 30,
+        node.trafficDensity ?? 50,
+        0.5 // Assume each node represents 500m of road
+      );
+    }
+    return sum;
   }, 0);
-
-  const dayEmissionKg = emissionPerHourKg * 24;
 
   return {
     avgAqi,

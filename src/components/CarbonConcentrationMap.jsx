@@ -3,9 +3,17 @@ import L from 'leaflet';
 import 'leaflet.heat';
 import { MapContainer, TileLayer, CircleMarker, Tooltip, Marker, useMap } from 'react-leaflet';
 import CITIES from '../data/cities';
+import { generateIdwHeatmapPoints } from '../utils/idwInterpolate';
 
 const INDIA_CENTER = [22.5, 78.9629];
 const INDIA_ZOOM   = 5;
+
+const INDIA_BOUNDS = {
+  latMin: 8.4,
+  latMax: 37.6,
+  lngMin: 68.7,
+  lngMax: 97.25,
+};
 
 /* ── Heatmap layer ── */
 const HeatLayer = ({ points }) => {
@@ -104,10 +112,7 @@ const aqiColor = (aqiRaw) => {
 /* ── Main Map Component ── */
 const CarbonConcentrationMap = ({ nodes, selectedNode, onSelectNode, focusCityId }) => {
   const points = useMemo(() =>
-    nodes.map(n => {
-      const intensity = Math.max(0.05, Math.min(1, (Number(n.co2ppm ?? 420) - 420) / 1400));
-      return [Number(n.lat), Number(n.lng), intensity];
-    }),
+    generateIdwHeatmapPoints(nodes, 25, 25, INDIA_BOUNDS, 'pm25'),
   [nodes]);
 
   // Find the focused city's node

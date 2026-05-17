@@ -1,3 +1,5 @@
+import { applyDispersionStep } from './physicsEngine';
+
 // Zone types and their baseline emissions (arbitrary units)
 export const ZONES = {
   INDUSTRIAL: { type: 'industrial', emissionRate: 15, color: '#f87171' }, // Red-ish
@@ -24,7 +26,8 @@ export const generateCityGrid = (width = 10, height = 10) => {
       // Define some regions
       if (x >= 7 && y >= 7) zone = ZONES.INDUSTRIAL;
       else if (x === 4 || x === 5 || y === 4) zone = ZONES.TRANSPORT; // roads
-      else if (x >= 2 && x <= 4 && y >= 6) zone = ZONES.COMMERCIAL;
+      else if (x >= 2 && x
+         <= 4 && y >= 6) zone = ZONES.COMMERCIAL;
       else if (x <= 2 && y <= 2) zone = ZONES.PARK;
       
       row.push({
@@ -48,30 +51,27 @@ export const simulateStep = (grid, activeInterventions, customInterventions = []
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const cell = newGrid[y][x];
-      // Apply global multiplier (e.g., from physical MQTT sensor)
       let rate = cell.zone.emissionRate * globalMultiplier;
 
       // Apply built-in interventions
       if (activeInterventions.includes(INTERVENTIONS.TRAFFIC_REDUCTION.id) && cell.zone.type === 'transport') {
-        rate *= 0.7; // 30% reduction
+        rate *= 0.7; 
       }
       
       let generation = rate;
       if (activeInterventions.includes(INTERVENTIONS.VERTICAL_GARDENS.id) && (cell.zone.type === 'residential' || cell.zone.type === 'commercial')) {
-        generation -= 1; // absolute reduction
+        generation -= 1; 
       }
       if (activeInterventions.includes(INTERVENTIONS.ROADSIDE_CAPTURE.id) && cell.zone.type === 'transport') {
-        generation *= 0.6; // 40% reduction
+        generation *= 0.6; 
       }
       if (activeInterventions.includes(INTERVENTIONS.BIOFILTERS.id) && cell.zone.type === 'industrial') {
-        generation *= 0.5; // 50% reduction
+        generation *= 0.5; 
       }
 
-      // Apply custom user-defined interventions
       customInterventions.forEach(ci => {
         if (ci.isActive && (ci.targetZone === 'all' || cell.zone.type === ci.targetZone)) {
           if (ci.type === 'reduction') {
-            // factor is e.g. 50 for 50% reduction
             generation *= (1 - (ci.factor / 100));
           } else if (ci.type === 'increase') {
             generation *= (1 + (ci.factor / 100));
@@ -79,39 +79,14 @@ export const simulateStep = (grid, activeInterventions, customInterventions = []
         }
       });
 
-      // Add to current level (with some natural dissipation)
-      cell.co2Level = (cell.co2Level * 0.8) + generation;
+      // Natural dissipation 2% (realistic for large air masses)
+      cell.co2Level = (cell.co2Level * 0.98) + generation;
       if (cell.co2Level < 0) cell.co2Level = 0;
     }
   }
 
-  // 2. Diffusion (simple cellular automata approach)
-  const diffusedGrid = JSON.parse(JSON.stringify(newGrid));
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      let neighbors = 0;
-      let neighborSum = 0;
-
-      // check adjacent
-      const dirs = [[-1,0], [1,0], [0,-1], [0,1]];
-      for (const [dy, dx] of dirs) {
-        const ny = y + dy;
-        const nx = x + dx;
-        if (ny >= 0 && ny < height && nx >= 0 && nx < width) {
-          neighbors++;
-          neighborSum += newGrid[ny][nx].co2Level;
-        }
-      }
-      
-      // diffuse 10% of CO2 to neighbors
-      const selfFactor = 0.9;
-      const neighborFactor = 0.1 / neighbors;
-      
-      diffusedGrid[y][x].co2Level = (newGrid[y][x].co2Level * selfFactor) + (neighborSum * neighborFactor);
-    }
-  }
-
-  return diffusedGrid;
+  // 2. Diffusion (Cheng et al. 2014 Finite Difference Stencil)
+  return applyDispersionStep(newGrid, 2.5, 3, 100); 
 };
 
 // Calculate overall metrics

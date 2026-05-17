@@ -137,7 +137,7 @@ const NodeDetails = ({ node, liveStatus, weather }) => {
         <div className="rounded-2xl bg-white border border-slate-200 p-4 shadow-sm flex flex-col">
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp size={16} className="text-blue-500" />
-            <h3 className="text-sm font-black text-slate-800">5-min AI CO₂ Forecast</h3>
+            <h3 className="text-sm font-black text-slate-800">5-min Digital Twin Forecast</h3>
           </div>
           <div style={{ height: 120 }}>
             <ResponsiveContainer width="100%" height="100%">

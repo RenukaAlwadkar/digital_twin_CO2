@@ -17,6 +17,7 @@ import { db } from './firebase';
 // ─────────────────────────────────────────────
 const TELEMETRY_COL   = 'telemetry';     // city weather + AQI snapshots
 const SIMULATIONS_COL = 'simulations';  // what-if run results
+const WOKWI_COL       = 'wokwi_readings'; // live ESP32 prototype data
 
 // ── Connection test ──────────────────────────
 // Writes a tiny heartbeat doc to verify Firestore is reachable
@@ -175,5 +176,49 @@ export const subscribeSimulations = (callback, maxRecords = 10) => {
     callback(records);
   }, (err) => {
     console.error('❌ [Firestore] Simulation listener error:', err.message);
+  });
+};
+
+// ─────────────────────────────────────────────
+// WOKWI READINGS — Live prototype ESP32 data
+// ─────────────────────────────────────────────
+
+/**
+ * Save a single Wokwi sensor snapshot to Firestore.
+ * @param {object} data - { nodeId, co2_ppm, co_ppm, temperature, humidity }
+ */
+export const saveWokwiReading = async (data) => {
+  try {
+    await addDoc(collection(db, WOKWI_COL), {
+      nodeId:      data.nodeId      ?? 'live-prototype-node',
+      timestamp:   serverTimestamp(),
+      co2_ppm:     data.co2_ppm     ?? null,
+      co_ppm:      data.co_ppm      ?? null,
+      temperature: data.temperature ?? null,
+      humidity:    data.humidity    ?? null,
+    });
+    console.log('🔥 [Firestore] Saved Wokwi reading');
+  } catch (err) {
+    console.error('❌ [Firestore] Failed to save Wokwi reading:', err.message);
+  }
+};
+
+/**
+ * Subscribe to real-time Wokwi readings from Firestore.
+ * @param {function} callback - Called with latest records array on change
+ * @param {number} maxRecords
+ * @returns {function} Unsubscribe function
+ */
+export const subscribeWokwiReadings = (callback, maxRecords = 30) => {
+  const q = query(
+    collection(db, WOKWI_COL),
+    orderBy('timestamp', 'desc'),
+    limit(maxRecords)
+  );
+  return onSnapshot(q, (snapshot) => {
+    const records = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    callback(records);
+  }, (err) => {
+    console.error('❌ [Firestore] Wokwi listener error:', err.message);
   });
 };
