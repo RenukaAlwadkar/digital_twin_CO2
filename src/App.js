@@ -8,8 +8,21 @@ import WhatIfPage from './pages/WhatIfPage';
 import HistoryPage from './pages/HistoryPage';
 import { materializeDelhiNodes } from './utils/delhiNodes';
 import { agentInstance } from './services/agent';
-import { fetchOpenWeatherData as fetchDelhiWeather } from './services/openWeatherApi';
+import fetchDelhiTrafficFlow from './services/trafficApi';
+import { fetchDelhiTrafficRoads } from './services/trafficApi';
 import { saveCityTelemetry, testFirestoreConnection } from './services/firestoreService';
+
+// Small helper: approximate AQI from CO2 ppm when no canonical AQI available.
+// This is a heuristic / proxy only: maps CO2 range [400,2000] linearly to AQI [0,500].
+const computeAqiFromCo2 = (co2ppm) => {
+  const v = Number(co2ppm);
+  if (!Number.isFinite(v)) return null;
+  const minP = 400; // typical outdoor baseline
+  const maxP = 2000; // extreme indoor/traffic heavy upper bound
+  const clamped = Math.max(minP, Math.min(maxP, v));
+  const ratio = (clamped - minP) / (maxP - minP);
+  return Math.round(Math.max(0, Math.min(500, ratio * 500)));
+};
 
 const TABS = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -22,22 +35,22 @@ function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
 
   const trafficCollectorTopic = 'ecotwin/delhi/traffic/collector';
-  const dummyTrafficTopic     = 'ecotwin/delhi/traffic/dummy';
   const envCollectorTopic     = 'ecotwin/delhi/env/collector';
   const prototypeTopic        = 'ecotwin/live_data';
 
   const { sensorData: collectorData,   connectionStatus: collectorStatus  } = useMqtt(trafficCollectorTopic);
-  const { sensorData: dummyData,       connectionStatus: dummyStatus      } = useMqtt(dummyTrafficTopic);
   const { sensorData: envData,         connectionStatus: envStatus        } = useMqtt(envCollectorTopic);
   const { sensorData: prototypeDataRaw, connectionStatus: prototypeStatus } = useMqtt(prototypeTopic);
 
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [tick, setTick]                     = useState(0);
+  const [trafficSnapshot, setTrafficSnapshot] = useState(null);
+  const [trafficRoads, setTrafficRoads] = useState([]);
   const [scenarioParams, setScenarioParams] = useState({
     trafficReduction: 0, greenCover: 0, captureCount: 0, captureEfficiency: 50
   });
   const [agentResult, setAgentResult] = useState(null);
-  const [weather, setWeather]         = useState(null);
+  const weather = null;
 
   // Real-time data for all Indian cities
   const { cityNodes } = useCities();
@@ -47,13 +60,20 @@ function App() {
     testFirestoreConnection();
   }, []);
 
-  // Fetch real weather every 10s
+  // Fetch live traffic flow every 45s, with API fallback when no broker data is available
   useEffect(() => {
-    const fetchWeather = () => {
-      fetchDelhiWeather(28.6139, 77.2090, 'New Delhi').then(data => { if (data) setWeather(data); });
+    const fetchTraffic = () => {
+      Promise.all([
+        fetchDelhiTrafficFlow({ lat: 28.6139, lng: 77.2090 }),
+        fetchDelhiTrafficRoads(),
+      ]).then(([flowData, roadData]) => {
+        if (flowData) setTrafficSnapshot(flowData);
+        if (Array.isArray(roadData)) setTrafficRoads(roadData);
+      });
     };
-    fetchWeather();
-    const interval = setInterval(fetchWeather, 10000);
+
+    fetchTraffic();
+    const interval = setInterval(fetchTraffic, 45000);
     return () => clearInterval(interval);
   }, []);
 
@@ -80,7 +100,10 @@ function App() {
       };
     }
     if (!prototypeDataRaw) return null;
-    return { ...prototypeDataRaw, id: 'live-prototype-node', name: 'Live Prototype', location: 'New Delhi' };
+    // Ensure the live prototype has a sensible `aqi` when the upstream payload doesn't provide one.
+    const co2val = prototypeDataRaw?.co2ppm ?? prototypeDataRaw?.co2 ?? null;
+    const derivedAqi = prototypeDataRaw?.aqi ?? computeAqiFromCo2(co2val);
+    return { ...prototypeDataRaw, id: 'live-prototype-node', name: 'Live Prototype', location: 'New Delhi', aqi: derivedAqi };
   }, [prototypeDataRaw, weather]);
 
   // Merge env data with real weather
@@ -94,9 +117,19 @@ function App() {
   }), [weather, envData]);
 
   // MQTT-based nodes (Delhi prototype + traffic/env collectors)
+  const mergedTrafficData = useMemo(() => ({
+    ...(trafficSnapshot ?? {}),
+    ...(collectorData ?? {}),
+    id: 'delhi-road-traffic',
+    name: 'Delhi Road Traffic',
+    location: 'Delhi arterial roads',
+    source: collectorData ? 'mqtt+api' : (trafficSnapshot?.source ?? 'api'),
+    sourceState: collectorData || trafficSnapshot ? 'live' : 'offline',
+  }), [collectorData, trafficSnapshot]);
+
   const mqttNodes = useMemo(
-    () => materializeDelhiNodes({ trafficData: collectorData, dummyData, envData: combinedEnvData, prototypeData, tick, scenarioParams }),
-    [collectorData, dummyData, combinedEnvData, prototypeData, tick, scenarioParams]
+    () => materializeDelhiNodes({ trafficData: mergedTrafficData, envData: combinedEnvData, prototypeData, tick, scenarioParams }),
+    [mergedTrafficData, combinedEnvData, prototypeData, tick, scenarioParams]
   );
 
   // Merge city API nodes with MQTT nodes (MQTT overrides matching city id if live)
@@ -125,12 +158,13 @@ function App() {
     const saveAll = () => {
       cityNodes.forEach(node => {
         // city nodes use temperatureC / humidityPct / pm25 / aqiRaw (see useCities.js)
-        if (node.id && node.temperatureC != null) {
+          if (node.id && node.temperatureC != null) {
           saveCityTelemetry(node.id, node.location || node.name, {
             temperature:  node.temperatureC,
             humidity:     node.humidityPct,
             wind_speed:   node.wind_speed,
-            aqi:          node.aqiRaw,        // raw 1-5 scale
+            // Store canonical AQI (0-500) when available; otherwise null
+            aqi:          Number.isFinite(Number(node.aqi)) ? Number(node.aqi) : null,
             no:           node.no,
             pm2_5:        node.pm25,
             pm10:         node.pm10,
@@ -155,7 +189,7 @@ function App() {
     [nodes, selectedNodeId]
   );
 
-  const liveFeed = [collectorStatus, dummyStatus, envStatus, prototypeStatus]
+  const liveFeed = [collectorStatus, envStatus, prototypeStatus]
     .some(s => s === 'Receiving Live Wokwi Data');
 
   return (
@@ -212,6 +246,7 @@ function App() {
               selectedNode={selectedNode}
               onSelectNode={setSelectedNodeId}
               weather={weather}
+              trafficRoads={trafficRoads}
             />
           )}
           {activeTab === 'nodes' && (

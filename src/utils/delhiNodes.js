@@ -92,11 +92,11 @@ export const metricOptions = [
 
 export const formatNodeType = typeLabel;
 
-export const materializeDelhiNodes = ({ trafficData, dummyData, envData, prototypeData, tick = 0, scenarioParams = {} } = {}) => {
-  const trafficInfluence = Number(trafficData?.trafficDensity ?? dummyData?.trafficDensity ?? 48);
-  const trafficSpeed = Number(trafficData?.averageSpeedKph ?? dummyData?.averageSpeedKph ?? 32);
-  const trafficCo2 = Number(trafficData?.co2ppm ?? dummyData?.co2ppm ?? 920);
-  const trafficAqi = Number(trafficData?.aqi ?? dummyData?.aqi ?? 120);
+export const materializeDelhiNodes = ({ trafficData, envData, prototypeData, tick = 0, scenarioParams = {} } = {}) => {
+  const trafficInfluence = Number(trafficData?.trafficDensity ?? 48);
+  const trafficSpeed = Number(trafficData?.averageSpeedKph ?? 32);
+  const trafficCo2 = Number(trafficData?.co2ppm ?? 920);
+  const trafficAqi = Number(trafficData?.aqi ?? 120);
   const envTemperature = Number(envData?.temperatureC ?? 31.5);
   const envHumidity = Number(envData?.humidityPct ?? 56);
   const envCo2 = Number(envData?.co2ppm ?? 980);
@@ -109,7 +109,7 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, prototy
   const totalCaptureReduction = captureCount > 0 ? (captureCount * (captureEfficiency / 100) * 10) : 0;
 
   const nodeById = new Map();
-  const livePayloads = [trafficData, dummyData, envData, prototypeData].filter(Boolean);
+  const livePayloads = [trafficData, envData, prototypeData].filter(Boolean);
 
   livePayloads.forEach((payload) => {
     const id = normalizePayloadId(payload);
@@ -153,12 +153,21 @@ export const materializeDelhiNodes = ({ trafficData, dummyData, envData, prototy
     co2ppm = Math.max(400, co2ppm - totalCaptureReduction);
     
     const pm25 = Number(payload.pm25 ?? baseNode.pm25 ?? baseNode.base?.pm25 ?? 0);
-    const aqiFallback = inferredType === 'traffic_monitoring'
-      ? clamp((trafficDensity * 0.8) + (co2ppm / 18), 20, 500)
-      : clamp((pm25 * 0.58) + (co2ppm / 22), 20, 500);
-    let aqi = Number(payload.aqi ?? baseNode.aqi ?? baseNode.base?.aqi ?? aqiFallback);
-    
-    aqi = Math.max(10, aqi * (1 - greenCover / 150));
+
+    // DO NOT compute AQI locally. Preference for AQI (0-500):
+    // 1) payload.externalAqi (e.g., provided by OpenAQ fetch)
+    // 2) payload.aqi if it appears to already be in 0-500 range
+    // Otherwise leave `aqi` null to indicate no fetched AQI available.
+    let aqi = null;
+    if (payload.externalAqi !== undefined && Number.isFinite(Number(payload.externalAqi))) {
+      aqi = Number(payload.externalAqi);
+    } else if (payload.aqi !== undefined && Number.isFinite(Number(payload.aqi))) {
+      const candidate = Number(payload.aqi);
+      if (candidate > 5) {
+        // assume already 0-500
+        aqi = candidate;
+      }
+    }
 
     const merged = {
       ...baseNode,
@@ -242,9 +251,19 @@ export const getCityKpiSummary = (nodes) => {
     };
   }
 
-  const airNodes = nodes.filter((node) => node.type === 'air_quality');
-  const avgAqi = nodes.reduce((sum, node) => sum + Number(node.aqi ?? 0), 0) / nodes.length;
-  const avgCo2 = nodes.reduce((sum, node) => sum + Number(node.co2ppm ?? 0), 0) / nodes.length;
+  const effectiveNodes = nodes.filter((node) => !node.isCityAggregate);
+  const sourceNodes = effectiveNodes.length ? effectiveNodes : nodes;
+  const airNodes = sourceNodes.filter((node) => node.type === 'air_quality');
+
+  const validAqi = sourceNodes
+    .map((node) => Number(node.aqi))
+    .filter((value) => Number.isFinite(value) && value > 0);
+  const avgAqi = validAqi.length ? (validAqi.reduce((sum, value) => sum + value, 0) / validAqi.length) : 0;
+
+  const avgCo2 = sourceNodes.reduce((sum, node) => {
+    const value = Number(node.co2ppm);
+    return sum + (Number.isFinite(value) ? value : 0);
+  }, 0) / Math.max(sourceNodes.length, 1);
 
   const avgTemp = airNodes.length
     ? airNodes.reduce((sum, node) => sum + Number(node.temperatureC ?? 0), 0) / airNodes.length

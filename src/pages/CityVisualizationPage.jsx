@@ -26,7 +26,7 @@ const cityOptions = [
   ...CITIES.map(c => ({ value: c.id, label: `📍 ${c.name}` })),
 ];
 
-const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) => {
+const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather, trafficRoads = [] }) => {
   const [focusCity, setFocusCity] = useState('wardha');
 
   // Filter nodes by selected city for KPI stats
@@ -46,13 +46,13 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
     return nodes.find(n => n.id === `city-${focusCity}`);
   }, [focusCity, nodes]);
 
-  // Use focused city weather or fallback to Delhi weather prop
+  // Use focused city WAQI-derived aggregate details
   const displayWeather = focusedCityNode
     ? {
         temperature: focusedCityNode.temperatureC,
         humidity:    focusedCityNode.humidityPct,
         wind_speed:  focusedCityNode.wind_speed,
-        aqi:         focusedCityNode.aqiRaw,
+        aqi:         focusedCityNode.aqi,
         pm2_5:       focusedCityNode.pm25,
         no2:         focusedCityNode.no2,
         so2:         focusedCityNode.so2,
@@ -61,8 +61,9 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
         pm10:        focusedCityNode.pm10,
         weatherDesc: focusedCityNode.weatherDesc,
         pressure:    focusedCityNode.pressure,
+        stationCount: focusedCityNode.stationCount,
       }
-    : weather;
+    : null;
 
   const focusCityConfig = CITIES.find(c => c.id === focusCity) ?? null;
 
@@ -110,6 +111,7 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
           selectedNode={selectedNode}
           onSelectNode={onSelectNode}
           focusCityId={focusCity !== 'all' ? focusCity : null}
+          trafficRoads={trafficRoads}
         />
       </section>
 
@@ -117,8 +119,11 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
       {displayWeather && (
         <section className="glass-panel p-5">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 mb-1">
-            ☁️ Live OpenWeather API — {focusCityConfig?.name ?? 'New Delhi'}
+            🌐 Live WAQI Stations — {focusCityConfig?.name ?? 'Selected City'}
           </p>
+          {displayWeather.stationCount != null && (
+            <p className="text-xs text-slate-500 mb-2">Stations used: {displayWeather.stationCount}</p>
+          )}
           {displayWeather.weatherDesc && (
             <p className="text-xs text-slate-400 capitalize mb-3">{displayWeather.weatherDesc}</p>
           )}
@@ -127,7 +132,7 @@ const CityVisualizationPage = ({ nodes, selectedNode, onSelectNode, weather }) =
               { label: 'Temperature', value: displayWeather.temperature != null ? `${Number(displayWeather.temperature).toFixed(1)} °C` : '—' },
               { label: 'Humidity',    value: displayWeather.humidity    != null ? `${displayWeather.humidity}%` : '—' },
               { label: 'Wind',        value: displayWeather.wind_speed  != null ? `${Number(displayWeather.wind_speed).toFixed(1)} m/s` : '—' },
-              { label: 'AQI (1–5)',   value: displayWeather.aqi ?? '—' },
+              { label: 'AQI (0–500)', value: displayWeather.aqi != null ? Number(displayWeather.aqi).toFixed(0) : '—' },
               { label: 'PM2.5',       value: displayWeather.pm2_5  != null ? `${Number(displayWeather.pm2_5).toFixed(1)}` : '—' },
               { label: 'PM10',        value: displayWeather.pm10   != null ? `${Number(displayWeather.pm10).toFixed(1)}` : '—' },
               { label: 'NO₂',        value: displayWeather.no2    != null ? `${Number(displayWeather.no2).toFixed(1)}` : '—' },

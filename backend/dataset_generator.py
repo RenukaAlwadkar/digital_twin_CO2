@@ -5,16 +5,16 @@ def generate_synthetic_data(num_samples=10000):
     np.random.seed(42)
     
     # Generate features
-    # time_of_day = np.random.randint(0, 24, num_samples)
-    # temperature = np.random.uniform(15, 45, num_samples)
-    # humidity = np.random.uniform(20, 95, num_samples)
-    # wind_speed = np.random.uniform(0, 15, num_samples)
-    # pollution_index = np.random.uniform(20, 500, num_samples)
-    # traffic_factor = np.random.uniform(0, 100, num_samples)
+    time_of_day = np.random.randint(0, 24, num_samples)
+    temperature = np.random.uniform(15, 45, num_samples)
+    humidity = np.random.uniform(20, 95, num_samples)
+    wind_speed = np.random.uniform(0, 15, num_samples)
+    pollution_index = np.random.uniform(20, 500, num_samples)
+    traffic_factor = np.random.uniform(0, 100, num_samples)
     
     # Simulate CO2 dependency
     # Base CO2
-    co2 = 400.0
+    co2 = 400.0 * np.ones(num_samples)
     
     # Traffic increases CO2
     co2 += traffic_factor * 8.5
@@ -26,7 +26,7 @@ def generate_synthetic_data(num_samples=10000):
     co2 -= wind_speed * 15.0
     
     # Time of day effects (rush hours)
-    rush_hour_effect = np.where((time_of_day >= 8) & (time_of_day <= 10) | (time_of_day >= 17) & (time_of_day <= 20), 150, 0)
+    rush_hour_effect = np.where(((time_of_day >= 8) & (time_of_day <= 10)) | ((time_of_day >= 17) & (time_of_day <= 20)), 150, 0)
     co2 += rush_hour_effect
     
     # Temperature/Humidity slight effect

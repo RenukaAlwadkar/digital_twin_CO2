@@ -196,9 +196,9 @@ const WeatherHeatOverlay = ({ liveIntensity, cityHotspots = [] }) => {
   return null;
 };
 
-const GeoHeatmapMap = ({ trafficData, dummyData, cityHotspots = [], cityNodeCount = 0 }) => {
+const GeoHeatmapMap = ({ trafficData, cityHotspots = [], cityNodeCount = 0 }) => {
   const location = DELHI_CENTER;
-  const sourceData = trafficData || dummyData || null;
+  const sourceData = trafficData || null;
   const liveIntensity = useMemo(() => {
     if (!sourceData) return 0.35;
 

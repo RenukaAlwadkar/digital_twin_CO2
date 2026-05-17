@@ -1,13 +1,14 @@
 import os
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # ── Neon PostgreSQL connection string ──
-# Set the NEON_DATABASE_URL environment variable, or paste your connection string below.
-NEON_URL = os.environ.get(
-    "NEON_DATABASE_URL",
-    "postgresql://neondb_owner:npg_iEy1FTz7nuLk@ep-still-queen-aqsba3nz-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require"
-)
+# Set the NEON_DATABASE_URL environment variable, or it will fallback to SQLite.
+NEON_URL = os.environ.get("NEON_DATABASE_URL", None)
 
 SQLITE_URL = "sqlite:///./eco_twin.db"
 

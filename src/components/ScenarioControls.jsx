@@ -1,69 +1,51 @@
 import React, { useState } from 'react';
-import { Settings2, Activity } from 'lucide-react';
-
-const API_URL = 'http://localhost:8000';
+import { Settings2, Activity, AlertCircle } from 'lucide-react';
+import { simulateScenario } from '../services/aiPrediction';
 
 const ScenarioControls = ({ baseData, onSimulationResult }) => {
   const [params, setParams] = useState({
-    trafficLevel: 'medium',
-    industrialEmissions: 0,
-    greenCover: 0,
-    windSpeedChange: 0
+    traffic_level: 'medium',
+    industrial_emissions: 0,
+    green_cover_increase: 0,
+    wind_speed_change: 0
   });
   
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const runSimulation = async () => {
-    if (!baseData) return;
+    if (!baseData) {
+      setError('No base data available');
+      return;
+    }
+    
     setLoading(true);
+    setError(null);
+    
     try {
-      const payload = {
-        base_data: {
-          temperature:     baseData.temperature     || baseData.temperatureC || 30,
-          humidity:        baseData.humidity        || baseData.humidityPct  || 50,
-          wind_speed:      baseData.wind_speed      || 5,
-          pollution_index: baseData.pollution_index || baseData.aqi || 100,
-          time_of_day:     baseData.time_of_day     || new Date().getHours(),
-          traffic_factor:  baseData.traffic_factor  || 50,
-          // New 20-feature model support
-          pm2_5:  baseData.pm2_5  || baseData.pm25  || 25,
-          pm10:   baseData.pm10   || 40,
-          no:     baseData.no     || 5,
-          no2:    baseData.no2    || 15,
-          nh3:    baseData.nh3    || 2,
-          co:     baseData.co     || 400,
-          so2:    baseData.so2    || 10,
-          o3:     baseData.o3     || 30,
-          aqi:    baseData.aqiRaw || baseData.aqi || 2
-        },
-        traffic_level: params.trafficLevel,
-        green_cover_increase: params.greenCover,
-        wind_speed_change: params.windSpeedChange,
-        industrial_emissions: params.industrialEmissions
-      };
-
-      const res = await fetch(`${API_URL}/simulate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      const data = await simulateScenario(baseData, {
+        traffic_level: params.traffic_level,
+        green_cover_increase: params.green_cover_increase,
+        wind_speed_change: params.wind_speed_change,
+        industrial_emissions: params.industrial_emissions
       });
       
-      const data = await res.json();
-      setResult(data);
-      // Notify parent so it can save to Firestore
-      if (onSimulationResult) {
-        onSimulationResult(data, {
-          traffic_level:          params.trafficLevel,
-          green_cover_increase:   params.greenCover,
-          wind_speed_change:      params.windSpeedChange,
-          industrial_emissions:   params.industrialEmissions,
-        });
+      if (data) {
+        setResult(data);
+        // Notify parent
+        if (onSimulationResult) {
+          onSimulationResult(data, params);
+        }
+      } else {
+        setError('Simulation failed - backend unavailable');
       }
     } catch (err) {
+      setError(`Simulation error: ${err.message}`);
       console.error("Simulation failed", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -75,75 +57,113 @@ const ScenarioControls = ({ baseData, onSimulationResult }) => {
         </div>
       </div>
       
+      {error && (
+        <div className="mb-4 p-3 bg-rose-50 border border-rose-200 rounded-lg flex items-center gap-2">
+          <AlertCircle size={16} className="text-rose-600 flex-shrink-0" />
+          <p className="text-xs text-rose-700 font-medium">{error}</p>
+        </div>
+      )}
+      
       <div className="space-y-5 flex-1 overflow-y-auto pr-2 custom-scrollbar">
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">Traffic Level</label>
           <select 
-            value={params.trafficLevel}
-            onChange={(e) => setParams(p => ({...p, trafficLevel: e.target.value}))}
-            className="w-full border border-slate-200 rounded-lg p-2 text-sm"
+            value={params.traffic_level}
+            onChange={(e) => setParams(p => ({...p, traffic_level: e.target.value}))}
+            disabled={loading}
+            className="w-full border border-slate-200 rounded-lg p-2 text-sm disabled:opacity-50"
           >
-            <option value="low">Low</option>
+            <option value="low">Low (-30% baseline)</option>
             <option value="medium">Medium (Baseline)</option>
-            <option value="high">High</option>
+            <option value="high">High (+50% baseline)</option>
           </select>
+          <p className="text-xs text-slate-500 mt-1">Adjust urban traffic volume</p>
         </div>
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            Industrial Emissions (+{params.industrialEmissions} ppm)
+            Industrial Emissions: <span className="text-rose-600">+{params.industrial_emissions.toFixed(0)} ppm</span>
           </label>
           <input 
-            type="range" min="0" max="200" 
-            value={params.industrialEmissions}
-            onChange={(e) => setParams(p => ({...p, industrialEmissions: Number(e.target.value)}))}
-            className="w-full accent-rose-600"
+            type="range" 
+            min="-100" 
+            max="200" 
+            value={params.industrial_emissions}
+            onChange={(e) => setParams(p => ({...p, industrial_emissions: Number(e.target.value)}))}
+            disabled={loading}
+            className="w-full accent-rose-600 disabled:opacity-50"
           />
+          <p className="text-xs text-slate-500 mt-1">Factory and industrial output adjustment</p>
         </div>
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            Green Cover Increase (+{params.greenCover}%)
+            Green Cover: <span className="text-emerald-600">+{params.green_cover_increase.toFixed(0)}%</span>
           </label>
           <input 
-            type="range" min="0" max="100" 
-            value={params.greenCover}
-            onChange={(e) => setParams(p => ({...p, greenCover: Number(e.target.value)}))}
-            className="w-full accent-emerald-500"
+            type="range" 
+            min="0" 
+            max="100" 
+            value={params.green_cover_increase}
+            onChange={(e) => setParams(p => ({...p, green_cover_increase: Number(e.target.value)}))}
+            disabled={loading}
+            className="w-full accent-emerald-500 disabled:opacity-50"
           />
+          <p className="text-xs text-slate-500 mt-1">Tree planting and vegetation increase</p>
         </div>
 
         <div>
           <label className="block text-sm font-bold text-slate-700 mb-2">
-            Wind Speed Change ({params.windSpeedChange > 0 ? '+' : ''}{params.windSpeedChange} m/s)
+            Wind Speed: <span className="text-sky-600">{params.wind_speed_change > 0 ? '+' : ''}{params.wind_speed_change.toFixed(1)} m/s</span>
           </label>
           <input 
-            type="range" min="-10" max="15" 
-            value={params.windSpeedChange}
-            onChange={(e) => setParams(p => ({...p, windSpeedChange: Number(e.target.value)}))}
-            className="w-full accent-sky-500"
+            type="range" 
+            min="-10" 
+            max="15" 
+            value={params.wind_speed_change}
+            onChange={(e) => setParams(p => ({...p, wind_speed_change: Number(e.target.value)}))}
+            disabled={loading}
+            step="0.5"
+            className="w-full accent-sky-500 disabled:opacity-50"
           />
+          <p className="text-xs text-slate-500 mt-1">Wind pattern and speed adjustment</p>
         </div>
         
         <button 
           onClick={runSimulation}
           disabled={loading || !baseData}
-          className="w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 disabled:opacity-50"
+          className="w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 disabled:opacity-50 transition-all"
         >
-          {loading ? 'Running AI...' : 'Run Simulation'}
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <Activity size={16} className="animate-spin" />
+              Running Simulation...
+            </span>
+          ) : (
+            'Run AI Simulation'
+          )}
         </button>
 
         {result && (
-          <div className={`mt-4 p-4 rounded-xl border ${result.impact === 'increase' ? 'bg-rose-50 border-rose-200 text-rose-900' : 'bg-emerald-50 border-emerald-200 text-emerald-900'}`}>
-            <h3 className="font-bold mb-2 flex items-center gap-2">
+          <div className={`mt-4 p-4 rounded-xl border ${result.impact === 'increase' ? 'bg-rose-50 border-rose-200' : 'bg-emerald-50 border-emerald-200'}`}>
+            <h3 className={`font-bold mb-3 flex items-center gap-2 ${result.impact === 'increase' ? 'text-rose-900' : 'text-emerald-900'}`}>
               <Activity size={16} /> 
               Simulation Result
             </h3>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <div>Base CO2: <span className="font-black">{result.base_co2.toFixed(1)} ppm</span></div>
-              <div>Simulated: <span className="font-black">{result.new_co2.toFixed(1)} ppm</span></div>
-              <div className="col-span-2">
-                Impact: <span className="font-black uppercase">{result.impact}</span> ({result.change_percent > 0 ? '+' : ''}{result.change_percent.toFixed(1)}%)
+            <div className={`space-y-2 text-sm ${result.impact === 'increase' ? 'text-rose-800' : 'text-emerald-800'}`}>
+              <div className="flex justify-between">
+                <span>Base CO2:</span>
+                <span className="font-black">{result.base_co2?.toFixed(1) || '—'} ppm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Predicted CO2:</span>
+                <span className="font-black">{result.new_co2?.toFixed(1) || '—'} ppm</span>
+              </div>
+              <div className={`flex justify-between pt-2 border-t ${result.impact === 'increase' ? 'border-rose-200' : 'border-emerald-200'}`}>
+                <span>Impact:</span>
+                <span className={`font-black uppercase ${result.impact === 'increase' ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {result.impact} by {Math.abs(result.change_percent)?.toFixed(1) || '—'}%
+                </span>
               </div>
             </div>
           </div>
